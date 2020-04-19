@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../screen/register_screen.dart';
+
 class AppBottomNavigatioBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -46,6 +48,8 @@ class AppBottomNavigatioBar extends StatelessWidget {
   void _navigateToScreen(int index, BuildContext context) {
     switch (index) {
       case 0:
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (_) => RegisterScreen()));
         break;
       case 1:
         Scaffold.of(context).openDrawer();

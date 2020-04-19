@@ -52,6 +52,10 @@ class _PregnantTwoScreenState extends State<PregnantTwoScreen> {
                   child: Image.asset('assets/images/buttons/btn-002-004.png'),
                 ),
                 SizedBox(height: 16),
+                GestureDetector(
+                  child: Image.asset('assets/images/buttons/btn-002-005.png'),
+                ),
+                SizedBox(height: 16),
               ],
             ),
           ],

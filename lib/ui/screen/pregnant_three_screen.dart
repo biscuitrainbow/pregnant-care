@@ -3,6 +3,7 @@ import 'package:pregnantcare/ui/common/app_bottom_navigation_bar.dart';
 import 'package:pregnantcare/ui/common/bordered_container.dart';
 import 'package:pregnantcare/ui/common/custom_app_bar.dart';
 import 'package:pregnantcare/ui/common/drawer_container.dart';
+import 'package:pregnantcare/ui/screen/music_list_screen.dart';
 import 'package:pregnantcare/ui/screen/video_list_screen.dart';
 
 class PregnantThreeScreen extends StatefulWidget {
@@ -40,6 +41,9 @@ class _PregnantThreeScreenState extends State<PregnantThreeScreen> {
                 SizedBox(height: 16),
                 GestureDetector(
                   child: Image.asset('assets/images/buttons/btn-003-002.png'),
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => MusicListScreen()),
+                  ),
                 ),
                 SizedBox(height: 16),
                 SizedBox(

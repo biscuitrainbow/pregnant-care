@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:pregnantcare/ui/common/bordered_container.dart';
 import 'package:pregnantcare/ui/common/custom_app_bar.dart';
 import 'package:pregnantcare/ui/common/drawer_container.dart';
-import 'package:pregnantcare/ui/common/floating_action_button.dart';
 import 'package:pregnantcare/ui/style/widget_styles.dart';
+
+import '../common/app_bottom_navigation_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -20,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
         leadingType: LeadingType.menu,
       ),
       drawer: AppDrawer(),
+      bottomNavigationBar: AppBottomNavigatioBar(),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(

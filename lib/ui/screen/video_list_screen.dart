@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pregnantcare/ui/common/bordered_container.dart';
-import 'package:pregnantcare/ui/common/button.dart';
 import 'package:pregnantcare/ui/screen/video_player_screen.dart';
-import 'package:pregnantcare/ui/style/text_styles.dart';
 import 'package:pregnantcare/ui/style/widget_styles.dart';
 
 class VideoListScreen extends StatefulWidget {
@@ -11,6 +9,11 @@ class VideoListScreen extends StatefulWidget {
 }
 
 class _VideoListScreenState extends State<VideoListScreen> {
+  final List<String> _videoUrls = [
+    'assets/videos/video-002.webm',
+    'assets/videos/video-001.webm'
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,8 +38,9 @@ class _VideoListScreenState extends State<VideoListScreen> {
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) => VideoPlayerScreen(
-                        url: 'assets/videos/video-002.webm',
                         title: 'เพลงดั่งดอกไม้บาน',
+                        videoUrls: _videoUrls,
+                        videoStartIndex: 0,
                       ),
                     ),
                   ),
@@ -48,12 +52,15 @@ class _VideoListScreenState extends State<VideoListScreen> {
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) => VideoPlayerScreen(
-                        url: 'assets/videos/video-002.webm',
                         title: 'เพลงดั่งดอกไม้บาน',
+                        videoUrls: _videoUrls,
+                        videoStartIndex: 1,
                       ),
                     ),
                   ),
                 ),
+                SizedBox(height: 32),
+                Image.asset('assets/images/mom/mom-016.png'),
               ],
             ),
           ],
