@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pregnantcare/ui/common/app_bottom_navigation_bar.dart';
 import 'package:pregnantcare/ui/common/bordered_container.dart';
 import 'package:pregnantcare/ui/common/button.dart';
 import 'package:pregnantcare/ui/common/custom_app_bar.dart';
 import 'package:pregnantcare/ui/common/drawer_container.dart';
 import 'package:pregnantcare/ui/common/floating_action_button.dart';
-import 'package:pregnantcare/ui/screen/video_list_screen.dart';
 import 'package:pregnantcare/ui/style/text_styles.dart';
-import 'package:pregnantcare/ui/style/widget_styles.dart';
 
 class PregnantFourScreen extends StatefulWidget {
   @override
@@ -18,10 +17,9 @@ class _PregnantFourScreenState extends State<PregnantFourScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: 'ติดต่อพยาบาล'),
-      floatingActionButton: Builder(builder: (context) => DrawerFloatingActionButton(onPressed: () => Scaffold.of(context).openDrawer())),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       drawer: AppDrawer(),
       backgroundColor: Color.fromRGBO(135, 202, 204, 1),
+      bottomNavigationBar: AppBottomNavigatioBar(),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -35,18 +33,7 @@ class _PregnantFourScreenState extends State<PregnantFourScreen> {
           children: [
             BorderedContainer(
               children: [
-                Text(
-                  'หากมีข้อสงสัยเพิ่มเติม สามารถติดต่อพยาบาลได้ทุกวัน \n ในช่วงเวลา  18:00 - 20:00 น. \nหรือ พิมพ์คำถามของคุณผ่านช่องทางนี้พยาบาลจะติดต่อกลับภายใน 24 ชั่วโมง',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 32,
-                  ),
-                ),
-                Text(
-                  'ไม่มีค่าใช้จ่าย',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 32, color: Colors.green),
-                ),
+                Image.asset('assets/images/contents/content-004.png'),
                 SizedBox(height: 32),
                 Button(
                   label: 'คลิกที่นี่เพื่อติดต่อพยาบาล',

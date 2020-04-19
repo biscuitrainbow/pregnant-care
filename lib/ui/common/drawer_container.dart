@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pregnantcare/ui/screen/pregnant_one_screen.dart';
-import 'package:pregnantcare/ui/screen/register_screen.dart';
-import 'package:pregnantcare/ui/style/text_styles.dart';
 import 'package:pregnantcare/ui/style/widget_styles.dart';
-
-import 'button.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -37,12 +32,6 @@ class AppDrawer extends StatelessWidget {
             SizedBox(height: 24),
             ...WidgetStyles.buildHomeMenuButtons(context, true),
             SizedBox(height: 64),
-            Button(
-              label: 'เข้าสู่ระบบ',
-              color: Color.fromRGBO(153, 204, 204, 1),
-              textStyle: TextStyles.labelWhite,
-              onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => RegisterScreen())),
-            ),
           ],
         ),
       ),

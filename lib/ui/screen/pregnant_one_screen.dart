@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pregnantcare/ui/common/app_bottom_navigation_bar.dart';
 import 'package:pregnantcare/ui/common/bordered_container.dart';
 import 'package:pregnantcare/ui/common/button.dart';
 import 'package:pregnantcare/ui/common/custom_app_bar.dart';
@@ -20,9 +21,8 @@ class _PregnantOneScreenState extends State<PregnantOneScreen> {
         title: 'การคลอดบุตรไม่ใช่เรื่องน่ากลัว',
         automaticallyImplyLeading: false,
       ),
-      // floatingActionButton: Builder(builder: (context) => DrawerFloatingActionButton(onPressed: () => Scaffold.of(context).openDrawer())),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       drawer: AppDrawer(),
+      bottomNavigationBar: AppBottomNavigatioBar(),
       backgroundColor: Color.fromRGBO(135, 202, 204, 1),
       body: Container(
         decoration: BoxDecoration(
@@ -38,32 +38,22 @@ class _PregnantOneScreenState extends State<PregnantOneScreen> {
           children: [
             BorderedContainer(
               children: [
-                Button(
-                  label: 'ความกลัวการคลอดบุตร\nคืออะไร',
-                  color: Color.fromRGBO(166, 204, 200, 1),
-                  textStyle: TextStyles.labelBrown,
-                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => PregnantOneOneScreen())),
+                GestureDetector(
+                  child: Image.asset('assets/images/buttons/btn-001-001.png'),
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (_) => PregnantOneOneScreen())),
                 ),
-                SizedBox(height: 32),
-                Button(
-                  label: 'ความกลัวการคลอดบุตร\nเกิดขึ้นได้อย่างไร',
-                  color: Color.fromRGBO(166, 204, 200, 1),
-                  textStyle: TextStyles.labelBrown,
-                  onPressed: () => print('tap'),
+                SizedBox(height: 16),
+                GestureDetector(
+                  child: Image.asset('assets/images/buttons/btn-001-002.png'),
                 ),
-                SizedBox(height: 32),
-                Button(
-                  label: 'ผลกระทบกับคุณแม่',
-                  color: Color.fromRGBO(166, 204, 200, 1),
-                  textStyle: TextStyles.labelBrown,
-                  onPressed: () => print('tap'),
+                SizedBox(height: 16),
+                GestureDetector(
+                  child: Image.asset('assets/images/buttons/btn-001-003.png'),
                 ),
-                SizedBox(height: 32),
-                Button(
-                  label: 'ผลกระทบกับลูกน้อย',
-                  color: Color.fromRGBO(166, 204, 200, 1),
-                  textStyle: TextStyles.labelBrown,
-                  onPressed: () => print('tap'),
+                SizedBox(height: 16),
+                GestureDetector(
+                  child: Image.asset('assets/images/buttons/btn-001-004.png'),
                 ),
               ],
             ),
@@ -74,22 +64,6 @@ class _PregnantOneScreenState extends State<PregnantOneScreen> {
                 'assets/images/mom/mom-005.png',
                 width: 125,
               ),
-            ),
-            Container(
-              width: 55,
-              height: 55,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Color.fromRGBO(255, 255, 153, 1),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.3),
-                    spreadRadius: 2,
-                    blurRadius: 1,
-                  ),
-                ],
-              ),
-              child: Icon(Icons.menu, color: Color.fromRGBO(102, 51, 0, 1)),
             ),
           ],
         ),

@@ -29,11 +29,10 @@ class _VideoListScreenState extends State<VideoListScreen> {
           children: [
             BorderedContainer(
               children: [
-                Button(
-                  label: 'เพลงดั่งดอกไม้บาน',
-                  color: Color.fromRGBO(146, 208, 80, 1),
-                  textStyle: TextStyles.labelBrown,
-                  onPressed: () => Navigator.of(context).push(
+                GestureDetector(
+                  child:
+                      Image.asset('assets/images/buttons/btn-003-001-001.png'),
+                  onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) => VideoPlayerScreen(
                         url: 'assets/videos/video-002.webm',
@@ -43,15 +42,14 @@ class _VideoListScreenState extends State<VideoListScreen> {
                   ),
                 ),
                 SizedBox(height: 32),
-                Button(
-                  label: 'เพลงแผ่เมตตา',
-                  color: Color.fromRGBO(146, 208, 80, 1),
-                  textStyle: TextStyles.labelBrown,
-                  onPressed: () => Navigator.of(context).push(
+                GestureDetector(
+                  child:
+                      Image.asset('assets/images/buttons/btn-003-001-002.png'),
+                  onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) => VideoPlayerScreen(
-                        url: 'assets/videos/video-001.webm',
-                        title: 'เพลงแผ่เมตตา',
+                        url: 'assets/videos/video-002.webm',
+                        title: 'เพลงดั่งดอกไม้บาน',
                       ),
                     ),
                   ),

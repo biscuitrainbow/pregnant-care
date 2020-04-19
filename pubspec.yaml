@@ -53,35 +53,35 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/bg-primary.png
-    # - assets/images/bg-content.png
-    # - assets/images/splash.png
-    # - assets/images/text-logo.png
-    # - assets/images/family.png
-    # - assets/images/bg-dot.png
-    # - assets/images/bg-dot-blue-yellow.png
-    # - assets/images/bg-dot-green-yellow.png
+    - assets/images/bg-content.png
+    - assets/images/splash.png
+    - assets/images/text-logo.png
+    - assets/images/family.png
+    - assets/images/bg-dot.png
+    - assets/images/bg-dot-blue-yellow.png
+    - assets/images/bg-dot-green-yellow.png
 
-    # - assets/images/mom/mom-001.png
-    # - assets/images/mom/mom-002.png
-    # - assets/images/mom/mom-003.png
-    # - assets/images/mom/mom-004.png
-    # - assets/images/mom/mom-005.png
-    # - assets/images/mom/mom-006.png
-    # - assets/images/mom/mom-007.png
-    # - assets/images/mom/mom-008.png
-    # - assets/images/mom/mom-009.png
-    # - assets/images/mom/mom-010.png
-    # - assets/images/mom/mom-011.png
-    # - assets/images/mom/mom-012.png
-    # - assets/images/mom/mom-013.png
-    # - assets/images/mom/mom-014.png
-    # - assets/images/mom/mom-015.png
+    - assets/images/mom/mom-001.png
+    - assets/images/mom/mom-002.png
+    - assets/images/mom/mom-003.png
+    - assets/images/mom/mom-004.png
+    - assets/images/mom/mom-005.png
+    - assets/images/mom/mom-006.png
+    - assets/images/mom/mom-007.png
+    - assets/images/mom/mom-008.png
+    - assets/images/mom/mom-009.png
+    - assets/images/mom/mom-010.png
+    - assets/images/mom/mom-011.png
+    - assets/images/mom/mom-012.png
+    - assets/images/mom/mom-013.png
+    - assets/images/mom/mom-014.png
+    - assets/images/mom/mom-015.png
 
-    # - assets/videos/video-001.webm
-    # - assets/videos/video-002.webm
+    - assets/videos/video-001.webm
+    - assets/videos/video-002.webm
 
-    # - assets/images/buttons/
-    # - assets/images/contents/
+    - assets/images/buttons/
+    - assets/images/contents/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

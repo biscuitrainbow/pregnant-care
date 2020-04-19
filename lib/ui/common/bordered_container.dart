@@ -24,7 +24,7 @@ class BorderedContainer extends StatelessWidget {
           color: Colors.white,
         ),
         margin: EdgeInsets.all(12),
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 2),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 2),
         child: Center(
           child: ListView(
             shrinkWrap: true,

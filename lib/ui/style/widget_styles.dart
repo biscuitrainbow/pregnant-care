@@ -31,48 +31,21 @@ class WidgetStyles {
 
   static buildHomeMenuButtons(BuildContext context, [bool drawerMode = false]) {
     return [
-      // GestureDetector(
-      //   child: Image.asset('assets/images/buttons/btn-001.png'),
-      //   onTap: () => navigate(PregnantOneScreen(), context, drawerMode),
-      // ),
-      Button(
-        label: 'การคลอดบุตร\nไม่ใช่เรื่องน่ากลัว',
-        image: 'assets/images/mom/mom-001.png',
-        color: Color.fromRGBO(166, 204, 200, 1),
-        textStyle: TextStyles.labelBrown,
-        onPressed: () => navigate(PregnantOneScreen(), context, drawerMode),
+      GestureDetector(
+        child: Image.asset('assets/images/buttons/btn-001.png'),
+        onTap: () => navigate(PregnantOneScreen(), context, drawerMode),
       ),
-      SizedBox(height: 32),
-      Button(
-        label: 'ธรรมชาติ\nการคลอดบุตร',
-        image: 'assets/images/mom/mom-004.png',
-        imageHeight: 100,
-        left: -25,
-        color: Color.fromRGBO(235, 152, 157, 1),
-        textStyle: TextStyles.labelBrown,
-        onPressed: () => navigate(PregnantTwoScreen(), context, drawerMode),
+      GestureDetector(
+        child: Image.asset('assets/images/buttons/btn-002.png'),
+        onTap: () => navigate(PregnantTwoScreen(), context, drawerMode),
       ),
-      SizedBox(height: 32),
-      Button(
-        label: 'เทคนิคการผ่อนคลาย',
-        image: 'assets/images/mom/mom-002.png',
-        imageHeight: 75,
-        top: -20,
-        left: -15,
-        color: Color.fromRGBO(146, 208, 80, 1),
-        textStyle: TextStyles.labelBrown,
-        onPressed: () => navigate(PregnantThreeScreen(), context, drawerMode),
+      GestureDetector(
+        child: Image.asset('assets/images/buttons/btn-003.png'),
+        onTap: () => navigate(PregnantThreeScreen(), context, drawerMode),
       ),
-      SizedBox(height: 32),
-      Button(
-        label: 'ติดต่อพยาบาล',
-        image: 'assets/images/mom/mom-003.png',
-        imageHeight: 80,
-        top: -20,
-        left: -15,
-        color: Color.fromRGBO(255, 217, 80, 1),
-        textStyle: TextStyles.labelBrown,
-        onPressed: () => navigate(PregnantFourScreen(), context, drawerMode),
+      GestureDetector(
+        child: Image.asset('assets/images/buttons/btn-004.png'),
+        onTap: () => navigate(PregnantFourScreen(), context, drawerMode),
       ),
     ];
   }

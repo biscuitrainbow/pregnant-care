@@ -35,7 +35,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
   @override
   void dispose() {
-    _chewieController.pause();
+    _chewieController.dispose();
+    _videoController.dispose();
     super.dispose();
   }
 
@@ -54,11 +55,39 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
           Chewie(
             controller: _chewieController,
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(Icons.shuffle),
+                onPressed: () => 'tap',
+              ),
+              IconButton(
+                icon: Icon(Icons.skip_previous),
+                onPressed: () => 'tap',
+              ),
+              IconButton(
+                icon: Icon(Icons.play_arrow),
+                onPressed: () => _videoController.value.isPlaying
+                    ? _videoController.pause()
+                    : _videoController.play(),
+              ),
+              IconButton(
+                icon: Icon(Icons.skip_next),
+                onPressed: () => _next(),
+              ),
+              IconButton(
+                icon: Icon(Icons.loop),
+                onPressed: () => 'tap',
+              ),
+            ],
+          ),
           SizedBox(height: 32),
           Stack(
             alignment: Alignment.bottomLeft,
             children: <Widget>[
-              FittedBox(child: Image.asset('assets/images/bg-dot-green-yellow.png')),
+              FittedBox(
+                  child: Image.asset('assets/images/bg-dot-green-yellow.png')),
               Padding(
                 padding: const EdgeInsets.only(left: 16.0),
                 child: Image.asset('assets/images/mom/mom-009.png', width: 180),
@@ -68,5 +97,16 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         ],
       ),
     );
+  }
+
+  void _next() {
+    setState(() async {
+      await this._videoController.pause();
+
+      this._videoController =
+          VideoPlayerController.asset('assets/videos/video-001.webm');
+
+      await this._videoController.initialize();
+    });
   }
 }
