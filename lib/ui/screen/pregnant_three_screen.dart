@@ -15,7 +15,7 @@ class _PregnantThreeScreenState extends State<PregnantThreeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'ธรรมชาติการคลอดบุตร'),
+      appBar: CustomAppBar(title: 'เทคนิคการผ่อนคลาย'),
       drawer: AppDrawer(),
       bottomNavigationBar: AppBottomNavigatioBar(),
       backgroundColor: Color.fromRGBO(135, 202, 204, 1),

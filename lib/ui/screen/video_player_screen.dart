@@ -1,18 +1,19 @@
+import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:pregnantcare/data/model/video.dart';
+import 'package:pregnantcare/ui/common/app_bottom_navigation_bar.dart';
+import 'package:pregnantcare/ui/common/drawer_container.dart';
 import 'package:pregnantcare/ui/style/widget_styles.dart';
 import 'package:video_player/video_player.dart';
-import 'package:awsome_video_player/awsome_video_player.dart';
-import 'package:chewie/chewie.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
-  final String title;
-  final List<String> videoUrls;
+  final List<Video> videos;
   final int videoStartIndex;
 
   const VideoPlayerScreen({
     Key key,
-    this.title,
-    this.videoUrls,
+    this.videos,
     this.videoStartIndex,
   }) : super(key: key);
 
@@ -25,6 +26,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   ChewieController _chewieController;
 
   int _currentVideIndex;
+  Video _currentVideo;
   bool _isLooping = false;
 
   @override
@@ -32,6 +34,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     super.initState();
 
     _currentVideIndex = widget.videoStartIndex;
+    _currentVideo = widget.videos[_currentVideIndex];
 
     _initVideoPlayer();
   }
@@ -47,58 +50,65 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      drawer: AppDrawer(),
+      bottomNavigationBar: AppBottomNavigatioBar(),
       appBar: WidgetStyles.buildAppBar(
         context,
-        widget.title,
+        widget.videos[_currentVideIndex].title,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: ListView(
         children: [
-          SizedBox(height: 0),
-          Chewie(
-            controller: _chewieController,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.shuffle),
-                onPressed: () => 'tap',
+          Column(
+            children: [
+              SizedBox(height: 48),
+              Chewie(
+                controller: _chewieController,
               ),
-              IconButton(
-                icon: Icon(Icons.skip_previous),
-                onPressed: () => _prev(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.shuffle),
+                    onPressed: () => 'tap',
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.skip_previous),
+                    onPressed: () => _prev(),
+                  ),
+                  IconButton(
+                    icon: _videoController.value.isPlaying
+                        ? Icon(Icons.pause)
+                        : Icon(Icons.play_arrow),
+                    onPressed: () => _videoController.value.isPlaying
+                        ? _videoController.pause()
+                        : _videoController.play(),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.skip_next),
+                    onPressed: () => _next(),
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.loop,
+                      color: _isLooping ? Colors.black : Colors.grey,
+                    ),
+                    onPressed: () => _toggleLooping(),
+                  ),
+                ],
               ),
-              IconButton(
-                icon: _videoController.value.isPlaying
-                    ? Icon(Icons.pause)
-                    : Icon(Icons.play_arrow),
-                onPressed: () => _videoController.value.isPlaying
-                    ? _videoController.pause()
-                    : _videoController.play(),
-              ),
-              IconButton(
-                icon: Icon(Icons.skip_next),
-                onPressed: () => _next(),
-              ),
-              IconButton(
-                icon: Icon(
-                  Icons.loop,
-                  color: _isLooping ? Colors.red : Colors.grey,
-                ),
-                onPressed: () => _toggleLooping(),
-              ),
-            ],
-          ),
-          SizedBox(height: 32),
-          Stack(
-            alignment: Alignment.bottomLeft,
-            children: <Widget>[
-              FittedBox(
-                  child: Image.asset('assets/images/bg-dot-green-yellow.png')),
-              Padding(
-                padding: const EdgeInsets.only(left: 16.0),
-                child: Image.asset('assets/images/mom/mom-009.png', width: 180),
+              SizedBox(height: 32),
+              Stack(
+                alignment: Alignment.bottomLeft,
+                children: <Widget>[
+                  FittedBox(
+                      child:
+                          Image.asset('assets/images/bg-dot-green-yellow.png')),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16.0),
+                    child: Image.asset('assets/images/mom/mom-009.png',
+                        width: 180),
+                  ),
+                ],
               ),
             ],
           ),
@@ -108,7 +118,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   }
 
   void _initVideoPlayer() {
-    final videoAsset = widget.videoUrls[_currentVideIndex];
+    final videoAsset = widget.videos[_currentVideIndex].url;
     _videoController = VideoPlayerController.asset(videoAsset);
 
     _videoController.addListener(_autoNext);
@@ -148,7 +158,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     await _chewieController.pause();
 
     setState(() {
-      if (_currentVideIndex + 1 == widget.videoUrls.length) {
+      if (_currentVideIndex + 1 == widget.videos.length) {
         _currentVideIndex = 0;
       } else {
         _currentVideIndex++;
@@ -164,7 +174,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
     setState(() {
       if (_currentVideIndex == 0) {
-        _currentVideIndex = widget.videoUrls.length - 1;
+        _currentVideIndex = widget.videos.length - 1;
       } else {
         _currentVideIndex--;
       }
@@ -174,6 +184,17 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   }
 
   void _toggleLooping() {
+    Fluttertoast.showToast(
+      msg:
+          _videoController.value.isLooping ? "ยกเลิกการเล่นวนซ้ำ" : "เล่นวนซ้ำ",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.black,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+
     setState(() async {
       _isLooping = !_isLooping;
       await _videoController.setLooping(!_videoController.value.isLooping);

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pregnantcare/data/model/music.dart';
+import 'package:pregnantcare/ui/common/app_bottom_navigation_bar.dart';
+import 'package:pregnantcare/ui/common/drawer_container.dart';
+import 'package:pregnantcare/ui/screen/audio_player_screen.dart';
 
 import '../common/bordered_container.dart';
 import '../style/widget_styles.dart';
-import 'video_player_screen.dart';
 
 class MusicListScreen extends StatefulWidget {
   @override
@@ -10,16 +13,17 @@ class MusicListScreen extends StatefulWidget {
 }
 
 class _MusicListScreenState extends State<MusicListScreen> {
-  final List<String> _videoUrls = [
-    'assets/videos/video-002.webm',
-    'assets/videos/video-001.webm'
+  final List<Music> _musics = [
+    Music(title: 'Sundial dream', url: 'musics/sundial-dreams.mp3'),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: WidgetStyles.buildAppBar(context, 'เทคนิคการผ่อนคลาย'),
+      appBar: WidgetStyles.buildAppBar(context, 'สมาธิผสมผสานดนตรีผ่อนคลาย'),
       backgroundColor: Color.fromRGBO(135, 202, 204, 1),
+      drawer: AppDrawer(),
+      bottomNavigationBar: AppBottomNavigatioBar(),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -41,10 +45,9 @@ class _MusicListScreenState extends State<MusicListScreen> {
                       Image.asset('assets/images/buttons/btn-003-002-001.png'),
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (_) => VideoPlayerScreen(
-                        title: 'เพลงดั่งดอกไม้บาน',
-                        videoUrls: _videoUrls,
-                        videoStartIndex: 0,
+                      builder: (_) => AudioPlayerScreen(
+                        musics: _musics,
+                        musicStartIndex: 0,
                       ),
                     ),
                   ),
@@ -53,57 +56,25 @@ class _MusicListScreenState extends State<MusicListScreen> {
                 GestureDetector(
                   child:
                       Image.asset('assets/images/buttons/btn-003-002-002.png'),
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => VideoPlayerScreen(
-                        title: 'เพลงดั่งดอกไม้บาน',
-                        videoUrls: _videoUrls,
-                        videoStartIndex: 1,
-                      ),
-                    ),
-                  ),
+                  onTap: () => 'tap',
                 ),
                 SizedBox(height: 16),
                 GestureDetector(
                   child:
                       Image.asset('assets/images/buttons/btn-003-002-003.png'),
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => VideoPlayerScreen(
-                        title: 'เพลงดั่งดอกไม้บาน',
-                        videoUrls: _videoUrls,
-                        videoStartIndex: 1,
-                      ),
-                    ),
-                  ),
+                  onTap: () => 'tap',
                 ),
                 SizedBox(height: 16),
                 GestureDetector(
                   child:
                       Image.asset('assets/images/buttons/btn-003-002-004.png'),
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => VideoPlayerScreen(
-                        title: 'เพลงดั่งดอกไม้บาน',
-                        videoUrls: _videoUrls,
-                        videoStartIndex: 1,
-                      ),
-                    ),
-                  ),
+                  onTap: () => 'tap',
                 ),
                 SizedBox(height: 16),
                 GestureDetector(
                   child:
                       Image.asset('assets/images/buttons/btn-003-002-005.png'),
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => VideoPlayerScreen(
-                        title: 'เพลงดั่งดอกไม้บาน',
-                        videoUrls: _videoUrls,
-                        videoStartIndex: 1,
-                      ),
-                    ),
-                  ),
+                  onTap: () => 'tap',
                 ),
               ],
             ),

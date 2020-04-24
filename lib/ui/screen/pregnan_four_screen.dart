@@ -4,7 +4,6 @@ import 'package:pregnantcare/ui/common/bordered_container.dart';
 import 'package:pregnantcare/ui/common/button.dart';
 import 'package:pregnantcare/ui/common/custom_app_bar.dart';
 import 'package:pregnantcare/ui/common/drawer_container.dart';
-import 'package:pregnantcare/ui/common/floating_action_button.dart';
 import 'package:pregnantcare/ui/style/text_styles.dart';
 
 class PregnantFourScreen extends StatefulWidget {
@@ -34,7 +33,6 @@ class _PregnantFourScreenState extends State<PregnantFourScreen> {
             BorderedContainer(
               children: [
                 Image.asset('assets/images/contents/content-004.png'),
-                SizedBox(height: 32),
                 Button(
                   label: 'คลิกที่นี่เพื่อติดต่อพยาบาล',
                   color: Color.fromRGBO(255, 217, 80, 1),
@@ -60,7 +58,8 @@ class _PregnantFourScreenState extends State<PregnantFourScreen> {
                       ),
                     ),
                   ],
-                )
+                ),
+                SizedBox(height: 72),
               ],
             ),
             Positioned(
@@ -68,7 +67,7 @@ class _PregnantFourScreenState extends State<PregnantFourScreen> {
               bottom: -25,
               child: Image.asset(
                 'assets/images/mom/mom-008.png',
-                height: 220,
+                height: 200,
               ),
             )
           ],

@@ -9,37 +9,19 @@ class AppBottomNavigatioBar extends StatelessWidget {
       onTap: (int index) => _navigateToScreen(index, context),
       items: [
         BottomNavigationBarItem(
-          icon: Icon(Icons.person, color: Color.fromRGBO(102, 51, 0, 1)),
-          title: Text(
-            'ข้อมูลส่วนตัว',
-            style: TextStyle(
-              fontSize: 20,
-              color: Color.fromRGBO(102, 51, 0, 1),
-            ),
-          ),
+          icon: Icon(Icons.help, color: Color.fromRGBO(102, 51, 0, 1)),
+          title: Container(),
         ),
         BottomNavigationBarItem(
           icon: Icon(
             Icons.menu,
             color: Color.fromRGBO(102, 51, 0, 1),
           ),
-          title: Text(
-            'เมนูหลัก',
-            style: TextStyle(
-              fontSize: 24,
-              color: Color.fromRGBO(102, 51, 0, 1),
-            ),
-          ),
+          title: Container(),
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.help, color: Color.fromRGBO(102, 51, 0, 1)),
-          title: Text(
-            'วิธ๊ใช้งาน',
-            style: TextStyle(
-              fontSize: 24,
-              color: Color.fromRGBO(102, 51, 0, 1),
-            ),
-          ),
+          icon: Icon(Icons.person, color: Color.fromRGBO(102, 51, 0, 1)),
+          title: Container(),
         ),
       ],
     );
@@ -48,13 +30,13 @@ class AppBottomNavigatioBar extends StatelessWidget {
   void _navigateToScreen(int index, BuildContext context) {
     switch (index) {
       case 0:
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (_) => RegisterScreen()));
         break;
       case 1:
         Scaffold.of(context).openDrawer();
         break;
       case 2:
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (_) => RegisterScreen()));
         break;
       default:
     }

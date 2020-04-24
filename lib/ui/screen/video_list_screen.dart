@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pregnantcare/data/model/video.dart';
+import 'package:pregnantcare/ui/common/app_bottom_navigation_bar.dart';
 import 'package:pregnantcare/ui/common/bordered_container.dart';
+import 'package:pregnantcare/ui/common/drawer_container.dart';
 import 'package:pregnantcare/ui/screen/video_player_screen.dart';
 import 'package:pregnantcare/ui/style/widget_styles.dart';
 
@@ -9,9 +12,15 @@ class VideoListScreen extends StatefulWidget {
 }
 
 class _VideoListScreenState extends State<VideoListScreen> {
-  final List<String> _videoUrls = [
-    'assets/videos/video-002.webm',
-    'assets/videos/video-001.webm'
+  final List<Video> _videos = [
+    Video(
+      title: 'เพลงดั่งดอกไม้บาน',
+      url: 'assets/videos/video-002.webm',
+    ),
+    Video(
+      title: 'เพลงแผ่เมตตา',
+      url: 'assets/videos/video-001.mp4',
+    )
   ];
 
   @override
@@ -19,6 +28,8 @@ class _VideoListScreenState extends State<VideoListScreen> {
     return Scaffold(
       appBar: WidgetStyles.buildAppBar(context, 'เทคนิคการผ่อนคลาย'),
       backgroundColor: Color.fromRGBO(135, 202, 204, 1),
+      drawer: AppDrawer(),
+      bottomNavigationBar: AppBottomNavigatioBar(),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -38,8 +49,7 @@ class _VideoListScreenState extends State<VideoListScreen> {
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) => VideoPlayerScreen(
-                        title: 'เพลงดั่งดอกไม้บาน',
-                        videoUrls: _videoUrls,
+                        videos: _videos,
                         videoStartIndex: 0,
                       ),
                     ),
@@ -52,8 +62,7 @@ class _VideoListScreenState extends State<VideoListScreen> {
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) => VideoPlayerScreen(
-                        title: 'เพลงดั่งดอกไม้บาน',
-                        videoUrls: _videoUrls,
+                        videos: _videos,
                         videoStartIndex: 1,
                       ),
                     ),

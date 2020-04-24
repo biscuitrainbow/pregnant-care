@@ -17,7 +17,7 @@ class _PregnantOneOneScreenState extends State<PregnantOneOneScreen> {
       body: PageView(
         children: [
           ListView(
-            padding: EdgeInsets.symmetric(horizontal: 8),
+            padding: EdgeInsets.symmetric(horizontal: 8,vertical: 16),
             children: [
               Image.asset(
                 'assets/images/contents/content-001.png',
@@ -34,7 +34,7 @@ class _PregnantOneOneScreenState extends State<PregnantOneOneScreen> {
             ],
           ),
           ListView(
-            padding: EdgeInsets.symmetric(horizontal: 8),
+            padding: EdgeInsets.symmetric(horizontal: 8,vertical: 16),
             children: [
               Image.asset(
                 'assets/images/contents/content-005.png',

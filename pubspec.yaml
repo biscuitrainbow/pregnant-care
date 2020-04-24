@@ -27,6 +27,8 @@ dependencies:
   awsome_video_player: ^1.0.7+3
   chewie: ^0.9.10
   auto_size_text: ^2.1.0
+  audioplayers: ^0.15.1
+  fluttertoast: ^4.0.0
 
 dev_dependencies:
   flutter_test:
@@ -53,11 +55,11 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
-  
+
     - assets/images/mom/
 
-    - assets/videos/video-001.webm
-    - assets/videos/video-002.webm
+    - assets/videos/
+    - assets/musics/
 
     - assets/images/buttons/
     - assets/images/contents/
