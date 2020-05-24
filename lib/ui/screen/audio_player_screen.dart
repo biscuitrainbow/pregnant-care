@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
@@ -23,13 +25,14 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
   AudioPlayerState _audioPlayerState;
 
   int _currentMusicIndex;
-  Music _currentMusic;
-  bool _isLooping = false;
+  Duration _position;
+  Duration _duration;
 
   @override
   void initState() {
     _currentMusicIndex = widget.musicStartIndex;
-    _currentMusic = widget.musics[widget.musicStartIndex];
+    _position = Duration();
+    _duration = Duration();
 
     initAudioPlayer();
 
@@ -45,19 +48,34 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
     super.dispose();
   }
 
-  void initAudioPlayer() {
+  void initAudioPlayer() async {
     _advancedPlayer = new AudioPlayer();
     _audioCache = new AudioCache(fixedPlayer: _advancedPlayer);
 
     _audioPlayerState = AudioPlayerState.STOPPED;
-    _advancedPlayer.onPlayerStateChanged
-        .listen((state) => setState(() => _audioPlayerState = state));
+    _advancedPlayer.onPlayerStateChanged.listen((state) {
+      // if (state == AudioPlayerState.PLAYING) {}
+
+      if (state == AudioPlayerState.COMPLETED) {
+        _next();
+      }
+    });
+
+    _advancedPlayer.onAudioPositionChanged.listen((Duration position) {
+      setState(() {
+        _position = position;
+      });
+    });
+
+    _advancedPlayer.onDurationChanged.listen((Duration duration) {
+      _duration = duration;
+    });
 
     _play();
   }
 
   void _play() async {
-    _audioCache.play(widget.musics[_currentMusicIndex].url);
+    await _audioCache.play(widget.musics[_currentMusicIndex].url);
   }
 
   void _pause() {
@@ -66,6 +84,20 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
 
   void _stop() {
     _advancedPlayer.stop();
+  }
+
+  void _next() async {
+    if (_currentMusicIndex == widget.musics.length - 1) {
+      setState(() {
+        _currentMusicIndex = 0;
+      });
+    } else {
+      setState(() {
+        _currentMusicIndex++;
+      });
+    }
+
+    await _audioCache.play(widget.musics[_currentMusicIndex].url);
   }
 
   @override
@@ -79,6 +111,8 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          Text('${_position.inMilliseconds}'),
+          Text('${_duration.inMilliseconds}'),
           SizedBox(height: 32),
           Image.asset(
             'assets/images/mom/mom-017.png',
@@ -112,13 +146,20 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
               ),
               IconButton(
                 icon: Icon(Icons.skip_next),
-                onPressed: () => 'tap',
+                onPressed: () => _next(),
               ),
               IconButton(
                 icon: Icon(Icons.loop),
                 onPressed: () => 'tap',
               ),
             ],
+          ),
+          Slider(
+            value: _position.inMilliseconds.toDouble(),
+            max: _duration.inMilliseconds.toDouble() + 1000,
+            onChanged: (value) {
+              _advancedPlayer.seek(Duration(milliseconds: value.toInt()));
+            },
           ),
           SizedBox(height: 32),
           FittedBox(

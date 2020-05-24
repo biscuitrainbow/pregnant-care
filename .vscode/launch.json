@@ -8,24 +8,6 @@
       "name": "Flutter",
       "request": "launch",
       "type": "dart"
-    },
-    {
-      "name": "Pixel2",
-      "request": "launch",
-      "type": "dart",
-      "deviceId": "emulator-5554"
-    },
-    {
-      "name": "PixelC",
-      "request": "launch",
-      "type": "dart",
-      "deviceId": "emulator-5556"
-    }
-  ],
-  "compounds": [
-    {
-      "name": "All Devices",
-      "configurations": ["Pixel2", "PixelC"]
     }
   ]
 }
