@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pregnantcare/ui/screen/splash_screen.dart';
 
 void main() => runApp(MyApp());
@@ -10,10 +11,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Demo Application',
       theme: ThemeData(
-        fontFamily: 'Waffle',
+        textTheme: GoogleFonts.sarabunTextTheme(),
         primarySwatch: Colors.blue,
       ),
-    home: SplashScreen(),
+      home: SplashScreen(),
     );
   }
 }

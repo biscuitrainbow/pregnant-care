@@ -28,12 +28,14 @@ class _CustomAppBarState extends State<CustomAppBar> {
         widget.title,
         style: TextStyle(
           color: Color.fromRGBO(102, 51, 0, 1),
-          fontSize: 32,
+          fontSize: 18,
         ),
       ),
       elevation: 0,
       backgroundColor: Color.fromRGBO(255, 255, 153, 1),
-      iconTheme: Theme.of(context).iconTheme.copyWith(color: Color.fromRGBO(102, 51, 0, 1)),
+      iconTheme: Theme.of(context)
+          .iconTheme
+          .copyWith(color: Color.fromRGBO(102, 51, 0, 1)),
       automaticallyImplyLeading: widget.automaticallyImplyLeading,
       leading: widget.leadingType == LeadingType.back
           ? IconButton(

@@ -17,58 +17,27 @@ class _PregnantOneOneScreenState extends State<PregnantOneOneScreen> {
       drawer: AppDrawer(),
       body: PageView(
         children: [
-          PhotoView(
-            initialScale: PhotoViewComputedScale.covered,
-            imageProvider: AssetImage(
-              'assets/images/contents/content-001-full.png',
+          SingleChildScrollView(
+            padding: EdgeInsets.zero,
+            child: Image.asset(
+              'assets/images/contents/content-001-001.JPG',
+              fit: BoxFit.cover,
             ),
           ),
-          PhotoView(
-            initialScale: PhotoViewComputedScale.covered,
-            imageProvider: AssetImage(
-              'assets/images/contents/content-002-full.png',
+          SingleChildScrollView(
+            padding: EdgeInsets.zero,
+            child: Image.asset(
+              'assets/images/contents/content-001-002.JPG',
+              fit: BoxFit.cover,
             ),
           ),
-          // ListView(
-          //   padding: EdgeInsets.symmetric(vertical: 16),
-          //   children: [
-          //     PhotoView(
-          //       imageProvider: AssetImage(
-          //         'assets/images/contents/content-001-full.png',
-          //       ),
-          //     ),
-          //     // Image.asset(
-          //     //   'assets/images/contents/content-002.png',
-          //     //   fit: BoxFit.cover,
-          //     // ),
-          //     // Image.asset(
-          //     //   'assets/images/contents/content-003.png',
-          //     //   fit: BoxFit.cover,
-          //     // ),
-          //   ],
-          // ),
-          // ListView(
-          //   padding: EdgeInsets.symmetric(vertical: 16),
-          //   children: [
-          //     PhotoView(
-          //       imageProvider: AssetImage(
-          //         'assets/images/contents/content-002-full.png',
-          //       ),
-
-          //     ),
-          //     // Container(
-          //     //   height: 200,
-          //     //   child: Image.asset(
-          //     //     'assets/images/contents/content-006.png',
-          //     //   ),
-          //     // ),
-          //     // Image.asset(
-          //     //   'assets/images/contents/content-007.png',
-          //     //   fit: BoxFit.cover,
-          //     // ),
-          //     // SizedBox(height: 30),
-          //   ],
-          // )
+          SingleChildScrollView(
+            padding: EdgeInsets.zero,
+            child: Image.asset(
+              'assets/images/contents/content-001-003.JPG',
+              fit: BoxFit.cover,
+            ),
+          ),
         ],
       ),
     );
