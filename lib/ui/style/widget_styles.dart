@@ -18,33 +18,32 @@ class WidgetStyles {
         ),
       ),
       automaticallyImplyLeading: false,
-      leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop()),
+      leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: () => Navigator.of(context).pop()),
       elevation: 0,
       backgroundColor: Color.fromRGBO(255, 255, 153, 1),
-      iconTheme: Theme.of(context)
-          .iconTheme
-          .copyWith(color: Color.fromRGBO(102, 51, 0, 1)),
+      iconTheme: Theme.of(context).iconTheme.copyWith(color: Color.fromRGBO(102, 51, 0, 1)),
     );
   }
 
   static buildHomeMenuButtons(BuildContext context, [bool drawerMode = false]) {
     return [
       GestureDetector(
-        child: Image.asset('assets/images/buttons/btn-001.png'),
+        child: Image.asset('assets/images/buttons/btn-drawer-001.png'),
         onTap: () => navigate(PregnantOneScreen(), context, drawerMode),
       ),
+      SizedBox(height: 24),
       GestureDetector(
-        child: Image.asset('assets/images/buttons/btn-002.png'),
+        child: Image.asset('assets/images/buttons/btn-drawer-002.png'),
         onTap: () => navigate(PregnantTwoScreen(), context, drawerMode),
       ),
+      SizedBox(height: 24),
       GestureDetector(
-        child: Image.asset('assets/images/buttons/btn-003.png'),
+        child: Image.asset('assets/images/buttons/btn-drawer-003.png'),
         onTap: () => navigate(PregnantThreeScreen(), context, drawerMode),
       ),
+      SizedBox(height: 24),
       GestureDetector(
-        child: Image.asset('assets/images/buttons/btn-004.png'),
+        child: Image.asset('assets/images/buttons/btn-drawer-004.png'),
         onTap: () => navigate(PregnantFourScreen(), context, drawerMode),
       ),
     ];

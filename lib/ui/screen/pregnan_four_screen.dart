@@ -5,6 +5,7 @@ import 'package:pregnantcare/ui/common/button.dart';
 import 'package:pregnantcare/ui/common/custom_app_bar.dart';
 import 'package:pregnantcare/ui/common/drawer_container.dart';
 import 'package:pregnantcare/ui/style/text_styles.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PregnantFourScreen extends StatefulWidget {
   @override
@@ -32,33 +33,16 @@ class _PregnantFourScreenState extends State<PregnantFourScreen> {
           children: [
             BorderedContainer(
               children: [
-                Image.asset('assets/images/contents/content-004.png'),
+                SizedBox(height: 48),
+                Image.asset('assets/images/contents/content-004-001.PNG'),
                 Button(
                   label: 'คลิกที่นี่เพื่อติดต่อพยาบาล',
                   color: Color.fromRGBO(255, 217, 80, 1),
                   textStyle: TextStyles.labelBrown,
-                  onPressed: () => print('dasd'),
-                  // onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => PregnantFourScreen())),
+                  onPressed: () => launch('https://line.me/R/ti/p/%40387gerkd'),
                 ),
                 SizedBox(height: 32),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(
-                      Icons.info_outline,
-                      size: 32,
-                      color: Colors.red,
-                    ),
-                    SizedBox(width: 8),
-                    Text(
-                      'กรณีเหตุฉุกเฉิน โทร. 1669',
-                      style: TextStyle(
-                        fontSize: 32,
-                        color: Colors.red,
-                      ),
-                    ),
-                  ],
-                ),
+                Image.asset('assets/images/contents/content-004-002.PNG'),
                 SizedBox(height: 72),
               ],
             ),
@@ -67,7 +51,7 @@ class _PregnantFourScreenState extends State<PregnantFourScreen> {
               bottom: -25,
               child: Image.asset(
                 'assets/images/mom/mom-008.png',
-                height: 200,
+                height: 160,
               ),
             )
           ],

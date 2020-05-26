@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pregnantcare/ui/common/app_bottom_navigation_bar.dart';
 import 'package:pregnantcare/ui/common/bordered_container.dart';
-import 'package:pregnantcare/ui/common/button.dart';
 import 'package:pregnantcare/ui/common/custom_app_bar.dart';
 import 'package:pregnantcare/ui/common/drawer_container.dart';
-import 'package:pregnantcare/ui/common/floating_action_button.dart';
 import 'package:pregnantcare/ui/screen/pregnant_one_one_screen.dart';
-import 'package:pregnantcare/ui/style/text_styles.dart';
+import 'package:pregnantcare/ui/screen/pregnant_one_two_screen.dart';
+import 'package:pregnantcare/ui/screen/pregnant_one_three_screen.dart';
+import 'package:pregnantcare/ui/screen/pregnant_one_four_screen.dart';
 
 class PregnantOneScreen extends StatefulWidget {
   @override
@@ -40,20 +40,30 @@ class _PregnantOneScreenState extends State<PregnantOneScreen> {
               children: [
                 GestureDetector(
                   child: Image.asset('assets/images/buttons/btn-001-001.png'),
-                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (_) => PregnantOneOneScreen())),
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => PregnantOneOneScreen()),
+                  ),
                 ),
                 SizedBox(height: 16),
                 GestureDetector(
                   child: Image.asset('assets/images/buttons/btn-001-002.png'),
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => PregnantOneTwoScreen()),
+                  ),
                 ),
                 SizedBox(height: 16),
                 GestureDetector(
                   child: Image.asset('assets/images/buttons/btn-001-003.png'),
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => PregnantOneThreeScreen()),
+                  ),
                 ),
                 SizedBox(height: 16),
                 GestureDetector(
                   child: Image.asset('assets/images/buttons/btn-001-004.png'),
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => PregnantOneFourScreen()),
+                  ),
                 ),
               ],
             ),

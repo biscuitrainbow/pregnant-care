@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pregnantcare/data/model/video.dart';
 import 'package:pregnantcare/ui/common/app_bottom_navigation_bar.dart';
 import 'package:pregnantcare/ui/common/bordered_container.dart';
+import 'package:pregnantcare/ui/common/custom_app_bar.dart';
 import 'package:pregnantcare/ui/common/drawer_container.dart';
 import 'package:pregnantcare/ui/screen/video_player_screen.dart';
 import 'package:pregnantcare/ui/style/widget_styles.dart';
@@ -26,7 +27,7 @@ class _VideoListScreenState extends State<VideoListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: WidgetStyles.buildAppBar(context, 'เทคนิคการผ่อนคลาย'),
+      appBar: CustomAppBar(title: 'การฝึกสมาธิเบื้องต้น'),
       backgroundColor: Color.fromRGBO(135, 202, 204, 1),
       drawer: AppDrawer(),
       bottomNavigationBar: AppBottomNavigatioBar(),
@@ -44,8 +45,7 @@ class _VideoListScreenState extends State<VideoListScreen> {
             BorderedContainer(
               children: [
                 GestureDetector(
-                  child:
-                      Image.asset('assets/images/buttons/btn-003-001-001.png'),
+                  child: Image.asset('assets/images/buttons/btn-003-001-001.png'),
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) => VideoPlayerScreen(
@@ -57,8 +57,7 @@ class _VideoListScreenState extends State<VideoListScreen> {
                 ),
                 SizedBox(height: 32),
                 GestureDetector(
-                  child:
-                      Image.asset('assets/images/buttons/btn-003-001-002.png'),
+                  child: Image.asset('assets/images/buttons/btn-003-001-002.png'),
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) => VideoPlayerScreen(

@@ -1,27 +1,38 @@
-import 'dart:developer';
+import 'dart:convert';
 
-import 'package:flutter/material.dart';
-import 'package:pregnantcare/ui/common/bordered_container.dart';
-import 'package:pregnantcare/ui/common/button.dart';
-import 'package:pregnantcare/ui/screen/home_screen.dart';
-import 'package:pregnantcare/ui/style/text_styles.dart';
-import 'package:pregnantcare/ui/style/widget_styles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:pregnantcare/ui/common/bordered_container.dart';
+import 'package:pregnantcare/ui/common/button.dart';
+import 'package:pregnantcare/ui/common/custom_app_bar.dart';
+import 'package:pregnantcare/ui/screen/forget_password_screen.dart';
+import 'package:pregnantcare/ui/style/text_styles.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class RegisterScreen extends StatefulWidget {
+class LoginScreen extends StatefulWidget {
   @override
-  _RegisterScreenState createState() => _RegisterScreenState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: WidgetStyles.buildAppBar(context, 'เข้าสู่ระบบ'),
+      appBar: CustomAppBar(title: 'เข้าสู่ระบบ'),
       backgroundColor: Color.fromRGBO(135, 202, 204, 1),
       body: Container(
         decoration: BoxDecoration(
@@ -37,13 +48,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
             BorderedContainer(
               children: [
                 TextFormField(
+                  controller: _emailController,
                   decoration: InputDecoration(hintText: 'อีเมลล์', hintStyle: TextStyles.inputHint),
                   style: TextStyles.inputHint,
                 ),
                 SizedBox(height: 24),
                 TextFormField(
+                  controller: _passwordController,
                   decoration: InputDecoration(hintText: 'รหัสผ่าน', hintStyle: TextStyles.inputHint),
                   style: TextStyles.inputHint,
+                  obscureText: true,
                 ),
                 SizedBox(height: 24),
                 Button(
@@ -71,7 +85,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     FlatButton(
-                      onPressed: () => 'register',
+                      onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => ForgetPasswordScreen())),
                       child: Text(
                         'ลืมรหัสผ่าน',
                         style: TextStyles.labelWhite.copyWith(color: Color.fromRGBO(171, 170, 170, 1)),
@@ -103,9 +117,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     try {
       final result = await facebookLogin.logIn(['email', 'public_profile']);
+      final graphResponse = await http.get('https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${result.accessToken.token}');
+      final profile = jsonDecode(graphResponse.body);
+
       final credential = FacebookAuthProvider.getCredential(accessToken: result.accessToken.token);
 
-      await _auth.signInWithCredential(credential);
+      final user = await _auth.signInWithCredential(credential);
+      print(user.additionalUserInfo.profile);
+
+      Navigator.of(context).pop();
     } catch (e) {
       print(e);
     }
@@ -122,7 +142,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
         idToken: googleSignInAuthentication.idToken,
       );
 
-      _auth.signInWithCredential(credential);
+      await _auth.signInWithCredential(credential);
+
+      Navigator.of(context).pop();
     } catch (e) {
       print(e);
     }
@@ -131,11 +153,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void _signIn() async {
     try {
       final result = await _auth.signInWithEmailAndPassword(
-        email: 'user@email.com',
-        password: 'secret',
+        email: _emailController.text,
+        password: _passwordController.text,
       );
 
-      print(result.additionalUserInfo.profile);
+      Navigator.of(context).pop();
     } catch (e) {
       print(e);
     }

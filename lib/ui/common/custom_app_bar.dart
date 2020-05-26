@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
@@ -27,15 +28,14 @@ class _CustomAppBarState extends State<CustomAppBar> {
       title: Text(
         widget.title,
         style: TextStyle(
-          color: Color.fromRGBO(102, 51, 0, 1),
+          color: Colors.black,
           fontSize: 18,
+          fontFamily: GoogleFonts.sarabun().fontFamily
         ),
       ),
       elevation: 0,
-      backgroundColor: Color.fromRGBO(255, 255, 153, 1),
-      iconTheme: Theme.of(context)
-          .iconTheme
-          .copyWith(color: Color.fromRGBO(102, 51, 0, 1)),
+      backgroundColor: Color.fromRGBO(255, 151, 203, 1),
+      iconTheme: Theme.of(context).iconTheme.copyWith(color: Colors.black),
       automaticallyImplyLeading: widget.automaticallyImplyLeading,
       leading: widget.leadingType == LeadingType.back
           ? IconButton(

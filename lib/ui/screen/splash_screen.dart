@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pregnantcare/ui/common/bordered_container.dart';
 import 'package:pregnantcare/ui/common/button.dart';
 import 'package:pregnantcare/ui/screen/home_screen.dart';
-import 'package:pregnantcare/ui/screen/register_screen.dart';
 import 'package:pregnantcare/ui/style/text_styles.dart';
 
 class SplashScreen extends StatefulWidget {

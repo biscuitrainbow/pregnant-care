@@ -5,6 +5,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:pregnantcare/data/model/music.dart';
 import 'package:pregnantcare/ui/common/app_bottom_navigation_bar.dart';
+import 'package:pregnantcare/ui/common/custom_app_bar.dart';
 import 'package:pregnantcare/ui/common/drawer_container.dart';
 import 'package:pregnantcare/ui/style/widget_styles.dart';
 
@@ -12,8 +13,7 @@ class AudioPlayerScreen extends StatefulWidget {
   final List<Music> musics;
   final int musicStartIndex;
 
-  const AudioPlayerScreen({Key key, this.musics, this.musicStartIndex})
-      : super(key: key);
+  const AudioPlayerScreen({Key key, this.musics, this.musicStartIndex}) : super(key: key);
 
   @override
   _AudioPlayerScreenState createState() => _AudioPlayerScreenState();
@@ -25,14 +25,21 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
   AudioPlayerState _audioPlayerState;
 
   int _currentMusicIndex;
+  Music _currentMusic;
   Duration _position;
   Duration _duration;
 
+  bool _repeat = false;
+  List<Music> _musics = [];
+
   @override
   void initState() {
-    _currentMusicIndex = widget.musicStartIndex;
     _position = Duration();
     _duration = Duration();
+
+    _musics = List.from(widget.musics);
+    _currentMusicIndex = widget.musicStartIndex;
+    _currentMusic = _musics[widget.musicStartIndex];
 
     initAudioPlayer();
 
@@ -49,15 +56,21 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
   }
 
   void initAudioPlayer() async {
-    _advancedPlayer = new AudioPlayer();
-    _audioCache = new AudioCache(fixedPlayer: _advancedPlayer);
+    _advancedPlayer = AudioPlayer();
+    _audioCache = AudioCache(fixedPlayer: _advancedPlayer);
 
     _audioPlayerState = AudioPlayerState.STOPPED;
     _advancedPlayer.onPlayerStateChanged.listen((state) {
-      // if (state == AudioPlayerState.PLAYING) {}
+      setState(() {
+        _audioPlayerState = state;
+      });
 
       if (state == AudioPlayerState.COMPLETED) {
-        _next();
+        if (_repeat) {
+          _play(_currentMusic.url);
+        } else {
+          _next();
+        }
       }
     });
 
@@ -71,11 +84,11 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
       _duration = duration;
     });
 
-    _play();
+    _play(_currentMusic.url);
   }
 
-  void _play() async {
-    await _audioCache.play(widget.musics[_currentMusicIndex].url);
+  void _play(url) async {
+    await _audioCache.play(url);
   }
 
   void _pause() {
@@ -84,10 +97,30 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
 
   void _stop() {
     _advancedPlayer.stop();
+
+    setState(() {
+      _duration = Duration();
+      _position = Duration();
+    });
+  }
+
+  void _prev() async {
+    if (_currentMusicIndex == 0) {
+      setState(() {
+        _currentMusicIndex = _musics.length - 1;
+      });
+    } else {
+      setState(() {
+        _currentMusicIndex--;
+      });
+    }
+
+    _currentMusic = _musics[_currentMusicIndex];
+    await _audioCache.play(_musics[_currentMusicIndex].url);
   }
 
   void _next() async {
-    if (_currentMusicIndex == widget.musics.length - 1) {
+    if (_currentMusicIndex == _musics.length - 1) {
       setState(() {
         _currentMusicIndex = 0;
       });
@@ -97,7 +130,20 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
       });
     }
 
-    await _audioCache.play(widget.musics[_currentMusicIndex].url);
+    _currentMusic = _musics[_currentMusicIndex];
+    await _audioCache.play(_musics[_currentMusicIndex].url);
+  }
+
+  void _toggleRepeat() {
+    setState(() {
+      _repeat = !_repeat;
+    });
+  }
+
+  void _shuffle() {
+    setState(() {
+      _musics.shuffle();
+    });
   }
 
   @override
@@ -105,69 +151,84 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       drawer: AppDrawer(),
-      appBar: WidgetStyles.buildAppBar(
-          context, widget.musics[_currentMusicIndex].title),
+      appBar: CustomAppBar(title: _currentMusic.title),
       bottomNavigationBar: AppBottomNavigatioBar(),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text('${_position.inMilliseconds}'),
-          Text('${_duration.inMilliseconds}'),
-          SizedBox(height: 32),
-          Image.asset(
-            'assets/images/mom/mom-017.png',
-            height: 220,
-          ),
-          SizedBox(height: 32),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              IconButton(
-                icon: Icon(Icons.shuffle),
-                onPressed: () => 'tap',
-              ),
-              IconButton(
-                icon: Icon(Icons.skip_previous),
-                onPressed: () => 'tap',
-              ),
-              IconButton(
-                icon: Icon(
-                  _audioPlayerState != AudioPlayerState.PLAYING
-                      ? Icons.play_arrow
-                      : Icons.pause,
-                ),
-                onPressed: () => _audioPlayerState != AudioPlayerState.PLAYING
-                    ? _play()
-                    : _pause(),
-              ),
-              IconButton(
-                icon: Icon(Icons.stop),
-                onPressed: () => _stop(),
-              ),
-              IconButton(
-                icon: Icon(Icons.skip_next),
-                onPressed: () => _next(),
-              ),
-              IconButton(
-                icon: Icon(Icons.loop),
-                onPressed: () => 'tap',
-              ),
-            ],
-          ),
-          Slider(
-            value: _position.inMilliseconds.toDouble(),
-            max: _duration.inMilliseconds.toDouble() + 1000,
-            onChanged: (value) {
-              _advancedPlayer.seek(Duration(milliseconds: value.toInt()));
-            },
-          ),
-          SizedBox(height: 32),
-          FittedBox(
-            child: Image.asset(
-              'assets/images/bg-dot-green-yellow.png',
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(height: 32),
+            Image.asset(
+              _currentMusic.thumbnail,
+              fit: BoxFit.fitWidth,
             ),
-          ),
-        ],
+            SizedBox(height: 32),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.shuffle),
+                  onPressed: () => _shuffle(),
+                ),
+                IconButton(
+                  icon: Icon(Icons.skip_previous),
+                  onPressed: () => _prev(),
+                ),
+                IconButton(
+                  icon: Icon(
+                    _audioPlayerState != AudioPlayerState.PLAYING ? Icons.play_arrow : Icons.pause,
+                  ),
+                  onPressed: () => _audioPlayerState != AudioPlayerState.PLAYING ? _play(_musics[_currentMusicIndex].url) : _pause(),
+                ),
+                IconButton(
+                  icon: Icon(Icons.stop),
+                  onPressed: () => _stop(),
+                ),
+                IconButton(
+                  icon: Icon(Icons.skip_next),
+                  onPressed: () => _next(),
+                ),
+                IconButton(
+                  icon: Icon(
+                    Icons.loop,
+                    color: _repeat ? Colors.black : Colors.grey.shade500,
+                  ),
+                  onPressed: () => _toggleRepeat(),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Text('${(_position.inMinutes % 60).toString().padLeft(2, "0")}:${(_position.inSeconds % 60).toString().padLeft(2, "0")}'),
+                      SizedBox(width: 4),
+                      Text('/'),
+                      SizedBox(width: 4),
+                      Text('${(_duration.inMinutes % 60).toString().padLeft(2, "0")}:${(_duration.inSeconds % 60).toString().padLeft(2, "0")}'),
+                    ],
+                  ),
+                  Expanded(
+                    child: Slider(
+                      value: _position.inMilliseconds.toDouble(),
+                      max: _duration.inMilliseconds.toDouble() + 5000,
+                      onChanged: (value) {
+                        _advancedPlayer.seek(Duration(milliseconds: value.toInt()));
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 32),
+            Image.asset(
+              _currentMusic.credit,
+              fit: BoxFit.fitWidth,
+            ),
+          ],
+        ),
       ),
     );
   }

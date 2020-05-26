@@ -2,6 +2,7 @@ import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:pregnantcare/data/model/video.dart';
 import 'package:pregnantcare/ui/common/app_bottom_navigation_bar.dart';
+import 'package:pregnantcare/ui/common/custom_app_bar.dart';
 import 'package:pregnantcare/ui/common/drawer_container.dart';
 import 'package:pregnantcare/ui/style/widget_styles.dart';
 import 'package:video_player/video_player.dart';
@@ -52,9 +53,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       backgroundColor: Colors.white,
       drawer: AppDrawer(),
       bottomNavigationBar: AppBottomNavigatioBar(),
-      appBar: WidgetStyles.buildAppBar(
-        context,
-        widget.videos[_currentVideIndex].title,
+      appBar: CustomAppBar(
+        title: widget.videos[_currentVideIndex].title,
       ),
       body: ListView(
         children: [
@@ -76,12 +76,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                     onPressed: () => _prev(),
                   ),
                   IconButton(
-                    icon: _videoController.value.isPlaying
-                        ? Icon(Icons.pause)
-                        : Icon(Icons.play_arrow),
-                    onPressed: () => _videoController.value.isPlaying
-                        ? _videoController.pause()
-                        : _videoController.play(),
+                    icon: _videoController.value.isPlaying ? Icon(Icons.pause) : Icon(Icons.play_arrow),
+                    onPressed: () => _videoController.value.isPlaying ? _videoController.pause() : _videoController.play(),
                   ),
                   IconButton(
                     icon: Icon(Icons.skip_next),
@@ -100,13 +96,10 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
               Stack(
                 alignment: Alignment.bottomLeft,
                 children: <Widget>[
-                  FittedBox(
-                      child:
-                          Image.asset('assets/images/bg-dot-green-yellow.png')),
+                  FittedBox(child: Image.asset('assets/images/bg-dot-green-yellow.png')),
                   Padding(
                     padding: const EdgeInsets.only(left: 16.0),
-                    child: Image.asset('assets/images/mom/mom-009.png',
-                        width: 180),
+                    child: Image.asset('assets/images/mom/mom-009.png', width: 180),
                   ),
                 ],
               ),
@@ -185,8 +178,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
   void _toggleLooping() {
     Fluttertoast.showToast(
-      msg:
-          _videoController.value.isLooping ? "ยกเลิกการเล่นวนซ้ำ" : "เล่นวนซ้ำ",
+      msg: _videoController.value.isLooping ? "ยกเลิกการเล่นวนซ้ำ" : "เล่นวนซ้ำ",
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,

@@ -9,8 +9,8 @@ class AppDrawer extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color.fromRGBO(255, 255, 153, 1),
-              Color.fromRGBO(183, 220, 219, 1),
+              Color.fromRGBO(255, 185, 208, 1),
+              Color.fromRGBO(182, 229, 230, 1),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -20,7 +20,7 @@ class AppDrawer extends StatelessWidget {
             ],
           ),
         ),
-        padding: EdgeInsets.symmetric(horizontal: 38),
+        padding: EdgeInsets.symmetric(horizontal: 12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
