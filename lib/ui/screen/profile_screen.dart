@@ -36,7 +36,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'เข้าสู่ระบบ'),
+      appBar: CustomAppBar(title: 'โปรไฟล์ของฉัน'),
       backgroundColor: Color.fromRGBO(135, 202, 204, 1),
       body: Container(
         decoration: BoxDecoration(
@@ -51,6 +51,48 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             BorderedContainer(
               children: [
+                SizedBox(height: 24),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Image.asset(
+                      'assets/images/mom/mom-009.png',
+                      width: 150,
+                    )
+                  ],
+                ),
+                SizedBox(height: 16),
+                TextFormField(
+                  decoration: InputDecoration(hintText: 'ชื่อ - สกุล', hintStyle: TextStyles.inputHint, labelText: 'ชื่อ - สกุล', labelStyle: TextStyle(color: Colors.black)),
+                  style: TextStyles.inputHint,
+                ),
+                SizedBox(height: 24),
+                TextFormField(
+                  decoration: InputDecoration(hintText: 'อายุ', hintStyle: TextStyles.inputHint, labelText: 'อายุ', labelStyle: TextStyle(color: Colors.black)),
+                  style: TextStyles.inputHint,
+                ),
+                SizedBox(height: 24),
+
+                Text('อายุครรภ์'),
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: TextFormField(
+                        decoration: InputDecoration(hintText: 'สัปดาห์', hintStyle: TextStyles.inputHint),
+                        style: TextStyles.inputHint,
+                      ),
+                    ),
+                    SizedBox(width: 32),
+                    Expanded(
+                      child: TextFormField(
+                        decoration: InputDecoration(hintText: 'วัน', hintStyle: TextStyles.inputHint),
+                        style: TextStyles.inputHint,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 24),
+
                 TextFormField(
                   controller: _emailController,
                   decoration: InputDecoration(hintText: 'อีเมลล์', hintStyle: TextStyles.inputHint),
@@ -58,8 +100,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 SizedBox(height: 24),
                 Button(
-                  label: 'เข้าสู่ระบบด้วย Google',
-                  color: Color.fromRGBO(237, 125, 49, 1),
+                  label: 'ออกจากระบบ',
+                  color: Colors.grey.shade500,
                   textStyle: TextStyles.labelWhite,
                   onPressed: _signOut,
                 ),
@@ -94,26 +136,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    FlatButton(
-                      onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => ForgetPasswordScreen())),
-                      child: Text(
-                        'ลืมรหัสผ่าน',
-                        style: TextStyles.labelWhite.copyWith(color: Color.fromRGBO(171, 170, 170, 1)),
+                    Expanded(
+                      child: Button(
+                        label: 'บันทึก',
+                        color: Color.fromRGBO(99, 173, 177, 1),
+                        textStyle: TextStyles.labelWhite,
+                        onPressed: _signOut,
                       ),
                     ),
-                    Text(
-                      '/',
-                      style: TextStyles.labelWhite.copyWith(color: Color.fromRGBO(171, 170, 170, 1)),
-                    ),
-                    FlatButton(
-                      onPressed: () => 'register',
-                      child: Text(
-                        'สร้างบัญชี',
-                        style: TextStyles.labelWhite.copyWith(color: Colors.green),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Button(
+                        label: 'แก้ไข',
+                        color: Color.fromRGBO(255, 151, 203, 1),
+                        textStyle: TextStyles.labelWhite,
+                        onPressed: _signOut,
                       ),
-                    )
+                    ),
                   ],
-                )
+                ),
+                SizedBox(height: 32),
               ],
             ),
           ],

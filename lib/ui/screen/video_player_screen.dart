@@ -93,14 +93,10 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                 ],
               ),
               SizedBox(height: 32),
-              Stack(
-                alignment: Alignment.bottomLeft,
+              Row(
                 children: <Widget>[
-                  FittedBox(child: Image.asset('assets/images/bg-dot-green-yellow.png')),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16.0),
-                    child: Image.asset('assets/images/mom/mom-009.png', width: 180),
-                  ),
+                  Image.asset('assets/images/mom/mom-009.png', width: 150),
+                  Image.asset(widget.videos[_currentVideIndex].credit, width: 220),
                 ],
               ),
             ],

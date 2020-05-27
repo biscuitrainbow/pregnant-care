@@ -222,10 +222,11 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 32),
-            Image.asset(
-              _currentMusic.credit,
-              fit: BoxFit.fitWidth,
+            Row(
+              children: <Widget>[
+                Image.asset('assets/images/mom/mom-009.png', width: 150),
+                Image.asset(_currentMusic.credit, width: 220),
+              ],
             ),
           ],
         ),

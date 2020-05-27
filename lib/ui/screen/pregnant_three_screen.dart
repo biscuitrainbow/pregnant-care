@@ -5,6 +5,7 @@ import 'package:pregnantcare/ui/common/custom_app_bar.dart';
 import 'package:pregnantcare/ui/common/drawer_container.dart';
 import 'package:pregnantcare/ui/screen/music_list_screen.dart';
 import 'package:pregnantcare/ui/screen/video_list_screen.dart';
+import 'package:pregnantcare/ui/screen/pregnant_three_one_screen.dart';
 
 class PregnantThreeScreen extends StatefulWidget {
   @override
@@ -21,9 +22,7 @@ class _PregnantThreeScreenState extends State<PregnantThreeScreen> {
       backgroundColor: Color.fromRGBO(135, 202, 204, 1),
       body: Container(
         decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("assets/images/bg-primary.png"),
-              fit: BoxFit.cover),
+          image: DecorationImage(image: AssetImage("assets/images/bg-primary.png"), fit: BoxFit.cover),
         ),
         padding: EdgeInsets.symmetric(horizontal: 18, vertical: 24),
         child: Stack(
@@ -31,6 +30,13 @@ class _PregnantThreeScreenState extends State<PregnantThreeScreen> {
           children: [
             BorderedContainer(
               children: [
+                SizedBox(height: 16),
+                GestureDetector(
+                  child: Image.asset('assets/images/buttons/btn-003-003.png'),
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => PregnantThreeOneScreen()),
+                  ),
+                ),
                 SizedBox(height: 16),
                 GestureDetector(
                   child: Image.asset('assets/images/buttons/btn-003-001.png'),

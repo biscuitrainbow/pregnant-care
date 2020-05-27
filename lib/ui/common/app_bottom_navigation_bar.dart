@@ -37,7 +37,7 @@ class AppBottomNavigatioBar extends StatelessWidget {
         Scaffold.of(context).openDrawer();
         break;
       case 2:
-        // Navigator.of(context).push(MaterialPageRoute(builder: (_) => UserScreen()));
+        Navigator.of(context).push(MaterialPageRoute(builder: (_) => UserScreen()));
         break;
       default:
     }

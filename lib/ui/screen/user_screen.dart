@@ -25,6 +25,8 @@ class _UserScreenState extends State<UserScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return ProfileScreen(user: _user);
+
     if (checkingLoggedIn) {
       return Scaffold(body: CircularProgressIndicator());
     }

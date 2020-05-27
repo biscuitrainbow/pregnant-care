@@ -72,7 +72,7 @@ class _PregnantOneScreenState extends State<PregnantOneScreen> {
               bottom: 0,
               child: Image.asset(
                 'assets/images/mom/mom-005.png',
-                width: 125,
+                width: 80,
               ),
             ),
           ],
