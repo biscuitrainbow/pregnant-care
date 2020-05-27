@@ -16,7 +16,7 @@ class _VideoListScreenState extends State<VideoListScreen> {
   final List<Video> _videos = [
     Video(
       title: 'เพลงดั่งดอกไม้บาน',
-      url: 'assets/videos/video-002.webm',
+      url: 'assets/videos/video-002.mp4',
     ),
     Video(
       title: 'เพลงแผ่เมตตา',
