@@ -97,12 +97,13 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
               ],
             ),
           ),
-          SizedBox(height: 64),
-          Row(
-            children: <Widget>[
-              Expanded(child: Image.asset('assets/images/mom/mom-009.png', height: 150)),
-              Expanded(child: Image.asset(widget.videos[_currentVideIndex].credit)),
-            ],
+          Expanded(
+            child: Row(
+              children: <Widget>[
+                Expanded(child: Image.asset('assets/images/mom/mom-009.png', height: 150)),
+                Expanded(child: Image.asset(widget.videos[_currentVideIndex].credit)),
+              ],
+            ),
           ),
         ],
       ),
