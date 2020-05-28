@@ -47,7 +47,7 @@ class _VideoListScreenState extends State<VideoListScreen> {
             BorderedContainer(
               children: [
                 GestureDetector(
-                  child: Image.asset('assets/images/buttons/btn-003-001-001.png'),
+                  child: Image.asset('assets/images/buttons/btn-003-002-001.png'),
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) => VideoPlayerScreen(
@@ -59,7 +59,7 @@ class _VideoListScreenState extends State<VideoListScreen> {
                 ),
                 SizedBox(height: 32),
                 GestureDetector(
-                  child: Image.asset('assets/images/buttons/btn-003-001-002.png'),
+                  child: Image.asset('assets/images/buttons/btn-003-002-002.png'),
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) => VideoPlayerScreen(

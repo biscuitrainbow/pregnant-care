@@ -22,25 +22,25 @@ class _MusicListScreenState extends State<MusicListScreen> {
       credit: 'assets/musics/sundial-dreams-credit.jpg',
     ),
     Music(
-      title: 'Relaxing Piano Music 1',
+      title: 'Relaxation Piano Music 1',
       url: 'musics/relaxing-piano-1.mp3',
       thumbnail: 'assets/musics/relaxing-piano-1.jpg',
       credit: 'assets/musics/relaxing-piano-1-credit.jpg',
     ),
     Music(
-      title: 'Relaxing Piano Music 2',
+      title: 'Relaxation Piano Music 2',
       url: 'musics/relaxing-piano-2.mp3',
       thumbnail: 'assets/musics/relaxing-piano-2.jpg',
       credit: 'assets/musics/relaxing-piano-2-credit.jpg',
     ),
     Music(
-      title: 'นิพพาน',
+      title: 'เพลงนิพพาน',
       url: 'musics/nipphan.mp3',
       thumbnail: 'assets/musics/nipphan.jpg',
       credit: 'assets/musics/nipphan-credit.jpg',
     ),
     Music(
-      title: 'ดั่งดอกไม้บ้าน',
+      title: 'เพลงดั่งดอกไม้บ้าน',
       url: 'musics/dung-dok-mai-barn.mp3',
       thumbnail: 'assets/musics/dung-dok-mai-barn.jpg',
       credit: 'assets/musics/dung-dok-mai-barn-credit.jpg',
@@ -50,7 +50,7 @@ class _MusicListScreenState extends State<MusicListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'สมาธิผสมผสานดนตรีผ่อนคลาย'),
+      appBar: CustomAppBar(title: 'ดนตรีเพื่อการผ่อนคลาย (สมาธิผสมผสาน)'),
       backgroundColor: Color.fromRGBO(135, 202, 204, 1),
       drawer: AppDrawer(),
       bottomNavigationBar: AppBottomNavigatioBar(),
@@ -67,11 +67,10 @@ class _MusicListScreenState extends State<MusicListScreen> {
           children: [
             BorderedContainer(
               children: [
-                SizedBox(height: 16),
                 Image.asset('assets/images/music.png'),
                 SizedBox(height: 16),
                 GestureDetector(
-                  child: Image.asset('assets/images/buttons/btn-003-002-001.png'),
+                  child: Image.asset('assets/images/buttons/btn-003-003-001.png'),
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) => AudioPlayerScreen(
@@ -83,7 +82,7 @@ class _MusicListScreenState extends State<MusicListScreen> {
                 ),
                 SizedBox(height: 16),
                 GestureDetector(
-                  child: Image.asset('assets/images/buttons/btn-003-002-002.png'),
+                  child: Image.asset('assets/images/buttons/btn-003-003-002.png'),
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) => AudioPlayerScreen(
@@ -95,7 +94,7 @@ class _MusicListScreenState extends State<MusicListScreen> {
                 ),
                 SizedBox(height: 16),
                 GestureDetector(
-                  child: Image.asset('assets/images/buttons/btn-003-002-003.png'),
+                  child: Image.asset('assets/images/buttons/btn-003-003-003.png'),
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) => AudioPlayerScreen(
@@ -107,7 +106,7 @@ class _MusicListScreenState extends State<MusicListScreen> {
                 ),
                 SizedBox(height: 16),
                 GestureDetector(
-                  child: Image.asset('assets/images/buttons/btn-003-002-004.png'),
+                  child: Image.asset('assets/images/buttons/btn-003-003-004.png'),
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) => AudioPlayerScreen(
@@ -119,7 +118,7 @@ class _MusicListScreenState extends State<MusicListScreen> {
                 ),
                 SizedBox(height: 16),
                 GestureDetector(
-                  child: Image.asset('assets/images/buttons/btn-003-002-005.png'),
+                  child: Image.asset('assets/images/buttons/btn-003-003-005.png'),
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) => AudioPlayerScreen(

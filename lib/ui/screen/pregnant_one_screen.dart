@@ -51,7 +51,7 @@ class _PregnantOneScreenState extends State<PregnantOneScreen> {
                     MaterialPageRoute(builder: (_) => PregnantOneTwoScreen()),
                   ),
                 ),
-                SizedBox(height: 16),
+                SizedBox(height: 6),
                 GestureDetector(
                   child: Image.asset('assets/images/buttons/btn-001-003.png'),
                   onTap: () => Navigator.of(context).push(

@@ -56,49 +56,52 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       appBar: CustomAppBar(
         title: widget.videos[_currentVideIndex].title,
       ),
-      body: ListView(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            children: [
-              SizedBox(height: 48),
-              Chewie(
-                controller: _chewieController,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.shuffle),
-                    onPressed: () => 'tap',
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.skip_previous),
-                    onPressed: () => _prev(),
-                  ),
-                  IconButton(
-                    icon: _videoController.value.isPlaying ? Icon(Icons.pause) : Icon(Icons.play_arrow),
-                    onPressed: () => _videoController.value.isPlaying ? _videoController.pause() : _videoController.play(),
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.skip_next),
-                    onPressed: () => _next(),
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      Icons.loop,
-                      color: _isLooping ? Colors.black : Colors.grey,
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(height: 48),
+                Chewie(
+                  controller: _chewieController,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.shuffle),
+                      onPressed: () => 'tap',
                     ),
-                    onPressed: () => _toggleLooping(),
-                  ),
-                ],
-              ),
-              SizedBox(height: 32),
-              Row(
-                children: <Widget>[
-                  Image.asset('assets/images/mom/mom-009.png', width: 150),
-                  Image.asset(widget.videos[_currentVideIndex].credit, width: 220),
-                ],
-              ),
+                    IconButton(
+                      icon: Icon(Icons.skip_previous),
+                      onPressed: () => _prev(),
+                    ),
+                    IconButton(
+                      icon: _videoController.value.isPlaying ? Icon(Icons.pause) : Icon(Icons.play_arrow),
+                      onPressed: () => _videoController.value.isPlaying ? _videoController.pause() : _videoController.play(),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.skip_next),
+                      onPressed: () => _next(),
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.loop,
+                        color: _isLooping ? Colors.black : Colors.grey,
+                      ),
+                      onPressed: () => _toggleLooping(),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 64),
+          Row(
+            children: <Widget>[
+              Expanded(child: Image.asset('assets/images/mom/mom-009.png', height: 150)),
+              Expanded(child: Image.asset(widget.videos[_currentVideIndex].credit)),
             ],
           ),
         ],

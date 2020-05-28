@@ -16,7 +16,7 @@ class _PregnantThreeScreenState extends State<PregnantThreeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'เทคนิคการผ่อนคลาย'),
+      appBar: CustomAppBar(title: 'เทคนิคคลายความกลัว'),
       drawer: AppDrawer(),
       bottomNavigationBar: AppBottomNavigatioBar(),
       backgroundColor: Color.fromRGBO(135, 202, 204, 1),
@@ -31,27 +31,27 @@ class _PregnantThreeScreenState extends State<PregnantThreeScreen> {
             BorderedContainer(
               children: [
                 SizedBox(height: 16),
+                SizedBox(height: 16),
                 GestureDetector(
-                  child: Image.asset('assets/images/buttons/btn-003-003.png'),
+                  child: Image.asset('assets/images/buttons/btn-003-001.png'),
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(builder: (_) => PregnantThreeOneScreen()),
                   ),
                 ),
                 SizedBox(height: 16),
                 GestureDetector(
-                  child: Image.asset('assets/images/buttons/btn-003-001.png'),
+                  child: Image.asset('assets/images/buttons/btn-003-002.png'),
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(builder: (_) => VideoListScreen()),
                   ),
                 ),
                 SizedBox(height: 16),
                 GestureDetector(
-                  child: Image.asset('assets/images/buttons/btn-003-002.png'),
+                  child: Image.asset('assets/images/buttons/btn-003-003.png'),
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(builder: (_) => MusicListScreen()),
                   ),
                 ),
-                SizedBox(height: 16),
                 SizedBox(
                   height: 220,
                   child: Image.asset(

@@ -46,5 +46,34 @@
 			<key>NSAllowsArbitraryLoads</key>
 			<true/>
 		</dict>
+		<key>CFBundleURLTypes</key>
+		<array>
+			<dict>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>com.googleusercontent.apps.660072906615-smcd8bj2t4rj700pdjiatdrido0vn4g7</string>
+				</array>
+			</dict>
+
+			<dict>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>fb277257146648370</string>
+				</array>
+			</dict>
+		</array>
+		<key>FacebookAppID</key>
+		<string>277257146648370</string>
+		<key>FacebookDisplayName</key>
+		<string>คลอดบุตรไม่น่ากลัวอย่างที่คิด</string>
+		<key>LSApplicationQueriesSchemes</key>
+		<array>
+			<string>fbapi</string>
+			<string>fb-messenger-share-api</string>
+			<string>fbauth2</string>
+			<string>fbshareextension</string>
+		</array>
 	</dict>
 </plist>

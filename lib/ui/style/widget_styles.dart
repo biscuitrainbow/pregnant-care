@@ -28,23 +28,23 @@ class WidgetStyles {
   static buildHomeMenuButtons(BuildContext context, [bool drawerMode = false]) {
     return [
       GestureDetector(
-        child: Image.asset('assets/images/buttons/btn-drawer-001.png'),
-        onTap: () => navigate(PregnantOneScreen(), context, drawerMode),
+        child: Image.asset('assets/images/buttons/btn-main-001.png', height: 48),
+        onTap: () => navigate(PregnantOneScreen(), context, false),
       ),
-      SizedBox(height: 24),
+      SizedBox(height: 16),
       GestureDetector(
-        child: Image.asset('assets/images/buttons/btn-drawer-002.png'),
-        onTap: () => navigate(PregnantTwoScreen(), context, drawerMode),
+        child: Image.asset('assets/images/buttons/btn-main-002.png', height: 48),
+        onTap: () => navigate(PregnantTwoScreen(), context, false),
       ),
-      SizedBox(height: 24),
+      SizedBox(height: 16),
       GestureDetector(
-        child: Image.asset('assets/images/buttons/btn-drawer-003.png'),
-        onTap: () => navigate(PregnantThreeScreen(), context, drawerMode),
+        child: Image.asset('assets/images/buttons/btn-main-003.png', height: 48),
+        onTap: () => navigate(PregnantThreeScreen(), context, false),
       ),
-      SizedBox(height: 24),
+      SizedBox(height: 16),
       GestureDetector(
-        child: Image.asset('assets/images/buttons/btn-drawer-004.png'),
-        onTap: () => navigate(PregnantFourScreen(), context, drawerMode),
+        child: Image.asset('assets/images/buttons/btn-main-004.png', height: 48),
+        onTap: () => navigate(PregnantFourScreen(), context, false),
       ),
     ];
   }

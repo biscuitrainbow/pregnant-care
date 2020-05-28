@@ -15,7 +15,7 @@ class _PregnantTwoFourScreenState extends State<PregnantTwoFourScreen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'อาการผิดปกติที่ควรมาโรงพยาบาลทันท'),
+      appBar: CustomAppBar(title: 'อาการผิดปกติที่ควรมาโรงพยาบาลทันที'),
       bottomNavigationBar: AppBottomNavigatioBar(),
       drawer: AppDrawer(),
       body: PageIndicatorContainer(

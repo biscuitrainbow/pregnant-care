@@ -37,22 +37,22 @@ class _HomeScreenState extends State<HomeScreen> {
         child: BorderedContainer(
           children: [
             GestureDetector(
-              child: Image.asset('assets/images/buttons/btn-main-001.jpg'),
+              child: Image.asset('assets/images/buttons/btn-main-001.png'),
               onTap: () => navigate(PregnantOneScreen(), context, false),
             ),
             SizedBox(height: 16),
             GestureDetector(
-              child: Image.asset('assets/images/buttons/btn-main-002.jpg'),
+              child: Image.asset('assets/images/buttons/btn-main-002.png'),
               onTap: () => navigate(PregnantTwoScreen(), context, false),
             ),
             SizedBox(height: 16),
             GestureDetector(
-              child: Image.asset('assets/images/buttons/btn-main-003.jpg'),
+              child: Image.asset('assets/images/buttons/btn-main-003.png'),
               onTap: () => navigate(PregnantThreeScreen(), context, false),
             ),
             SizedBox(height: 16),
             GestureDetector(
-              child: Image.asset('assets/images/buttons/btn-main-004.jpg'),
+              child: Image.asset('assets/images/buttons/btn-main-004.png'),
               onTap: () => navigate(PregnantFourScreen(), context, false),
             ),
           ],

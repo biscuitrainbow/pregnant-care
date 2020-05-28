@@ -9,9 +9,11 @@ import 'package:pregnantcare/ui/common/button.dart';
 import 'package:pregnantcare/ui/common/custom_app_bar.dart';
 import 'package:pregnantcare/ui/screen/forget_password_screen.dart';
 import 'package:pregnantcare/ui/style/text_styles.dart';
+import 'package:pregnantcare/ui/screen/register_screen.dart';
+
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -23,6 +25,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  bool _loadingVisible = false;
 
   @override
   void initState() {
@@ -47,63 +51,74 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             BorderedContainer(
               children: [
-                TextFormField(
-                  controller: _emailController,
-                  decoration: InputDecoration(hintText: 'อีเมลล์', hintStyle: TextStyles.inputHint),
-                  style: TextStyles.inputHint,
-                ),
-                SizedBox(height: 24),
-                TextFormField(
-                  controller: _passwordController,
-                  decoration: InputDecoration(hintText: 'รหัสผ่าน', hintStyle: TextStyles.inputHint),
-                  style: TextStyles.inputHint,
-                  obscureText: true,
-                ),
-                SizedBox(height: 24),
-                Button(
-                  label: 'เข้าสู่ระบบ',
-                  color: Color.fromRGBO(153, 204, 204, 1),
-                  textStyle: TextStyles.labelWhite,
-                  onPressed: _signIn,
-                ),
-                SizedBox(height: 36),
-                Button(
-                  label: 'เข้าสู่ระบบด้วย Facebook',
-                  color: Color.fromRGBO(46, 117, 182, 1),
-                  textStyle: TextStyles.labelWhite,
-                  onPressed: _signInWithFacebook,
-                ),
-                SizedBox(height: 24),
-                Button(
-                  label: 'เข้าสู่ระบบด้วย Google',
-                  color: Color.fromRGBO(237, 125, 49, 1),
-                  textStyle: TextStyles.labelWhite,
-                  onPressed: _signInWithGoogle,
-                ),
-                SizedBox(height: 24),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    FlatButton(
-                      onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => ForgetPasswordScreen())),
-                      child: Text(
-                        'ลืมรหัสผ่าน',
-                        style: TextStyles.labelWhite.copyWith(color: Color.fromRGBO(171, 170, 170, 1)),
+                if (_loadingVisible)
+                  Column(
+                    children: [
+                      Center(child: CircularProgressIndicator()),
+                    ],
+                  )
+                else
+                  Column(
+                    children: [
+                      TextFormField(
+                        controller: _emailController,
+                        decoration: InputDecoration(hintText: 'อีเมลล์', hintStyle: TextStyles.inputHint),
+                        style: TextStyles.inputHint,
                       ),
-                    ),
-                    Text(
-                      '/',
-                      style: TextStyles.labelWhite.copyWith(color: Color.fromRGBO(171, 170, 170, 1)),
-                    ),
-                    FlatButton(
-                      onPressed: () => 'register',
-                      child: Text(
-                        'สร้างบัญชี',
-                        style: TextStyles.labelWhite.copyWith(color: Colors.green),
+                      SizedBox(height: 24),
+                      TextFormField(
+                        controller: _passwordController,
+                        decoration: InputDecoration(hintText: 'รหัสผ่าน', hintStyle: TextStyles.inputHint),
+                        style: TextStyles.inputHint,
+                        obscureText: true,
                       ),
-                    )
-                  ],
-                )
+                      SizedBox(height: 24),
+                      Button(
+                        label: 'เข้าสู่ระบบ',
+                        color: Color.fromRGBO(153, 204, 204, 1),
+                        textStyle: TextStyles.labelWhite,
+                        onPressed: _signIn,
+                      ),
+                      SizedBox(height: 36),
+                      Button(
+                        label: 'เข้าสู่ระบบด้วย Facebook',
+                        color: Color.fromRGBO(46, 117, 182, 1),
+                        textStyle: TextStyles.labelWhite,
+                        onPressed: _signInWithFacebook,
+                      ),
+                      SizedBox(height: 24),
+                      Button(
+                        label: 'เข้าสู่ระบบด้วย Google',
+                        color: Color.fromRGBO(237, 125, 49, 1),
+                        textStyle: TextStyles.labelWhite,
+                        onPressed: _signInWithGoogle,
+                      ),
+                      SizedBox(height: 24),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          FlatButton(
+                            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => ForgetPasswordScreen())),
+                            child: Text(
+                              'ลืมรหัสผ่าน',
+                              style: TextStyles.labelWhite.copyWith(color: Color.fromRGBO(171, 170, 170, 1)),
+                            ),
+                          ),
+                          Text(
+                            '/',
+                            style: TextStyles.labelWhite.copyWith(color: Color.fromRGBO(171, 170, 170, 1)),
+                          ),
+                          FlatButton(
+                            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => RegisterScreen())),
+                            child: Text(
+                              'สร้างบัญชี',
+                              style: TextStyles.labelWhite.copyWith(color: Colors.green),
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
               ],
             ),
           ],
@@ -112,8 +127,22 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  void _showLoading() {
+    setState(() {
+      _loadingVisible = true;
+    });
+  }
+
+  void _hideLoading() {
+    setState(() {
+      _loadingVisible = false;
+    });
+  }
+
   void _signInWithFacebook() async {
     final FacebookLogin facebookLogin = FacebookLogin();
+
+    _showLoading();
 
     try {
       final result = await facebookLogin.logIn(['email', 'public_profile']);
@@ -121,18 +150,35 @@ class _LoginScreenState extends State<LoginScreen> {
       final profile = jsonDecode(graphResponse.body);
 
       final credential = FacebookAuthProvider.getCredential(accessToken: result.accessToken.token);
-
       final user = await _auth.signInWithCredential(credential);
-      print(user.additionalUserInfo.profile);
 
-      Navigator.of(context).pop();
+      if (user.additionalUserInfo.isNewUser) {
+        FirebaseDatabase.instance.reference().child('users/${user.user.uid}').set({
+          'name': profile['name'],
+          'email': profile['email'],
+          'age': '',
+          'pregnantAgeWeek': '',
+          'pregnantAgeDay': '',
+        });
+      }
+
+      _hideLoading();
     } catch (e) {
+      _hideLoading();
+
       print(e);
     }
   }
 
   void _signInWithGoogle() async {
-    final GoogleSignIn googleSignIn = GoogleSignIn();
+    _showLoading();
+
+    final GoogleSignIn googleSignIn = GoogleSignIn(
+      scopes: [
+        'email',
+        'https://www.googleapis.com/auth/contacts.readonly',
+      ],
+    );
     try {
       final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
       final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
@@ -142,23 +188,38 @@ class _LoginScreenState extends State<LoginScreen> {
         idToken: googleSignInAuthentication.idToken,
       );
 
-      await _auth.signInWithCredential(credential);
+      final user = await _auth.signInWithCredential(credential);
+      await user.user.updateEmail(googleSignIn.currentUser.email);
 
-      Navigator.of(context).pop();
+      if (user.additionalUserInfo.isNewUser) {
+        FirebaseDatabase.instance.reference().child('users/${user.user.uid}').set({
+          'name': user.user.displayName,
+          'email': googleSignInAccount.email,
+          'age': '',
+          'pregnantAgeWeek': '',
+          'pregnantAgeDay': '',
+        });
+      }
+      _hideLoading();
     } catch (e) {
-      print(e);
+      _hideLoading();
     }
   }
 
   void _signIn() async {
+    _showLoading();
+
     try {
       final result = await _auth.signInWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
       );
+      _hideLoading();
 
-      Navigator.of(context).pop();
+      // Navigator.of(context).pop();
     } catch (e) {
+      _hideLoading();
+
       print(e);
     }
   }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pregnantcare/ui/screen/login_screen.dart';
 import 'package:pregnantcare/ui/screen/profile_screen.dart';
 import 'package:pregnantcare/data/model/user.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class UserScreen extends StatefulWidget {
   @override
@@ -20,22 +21,26 @@ class _UserScreenState extends State<UserScreen> {
   void initState() {
     _checkLoggedIn();
 
+    _auth.onAuthStateChanged.listen((event) {
+      print(event);
+    });
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return ProfileScreen(user: _user);
+    // return ProfileScreen(user: _user);
 
-    if (checkingLoggedIn) {
-      return Scaffold(body: CircularProgressIndicator());
-    }
-
-    if (loggedIn) {
-      return ProfileScreen(user: _user);
-    } else {
-      return LoginScreen();
-    }
+    return StreamBuilder(
+        stream: _auth.onAuthStateChanged,
+        builder: (context, user) {
+          if (user.data != null) {
+            return ProfileScreen();
+          } else {
+            return LoginScreen();
+          }
+        });
   }
 
   void _checkLoggedIn() async {
@@ -50,7 +55,6 @@ class _UserScreenState extends State<UserScreen> {
       checkingLoggedIn = false;
 
       if (user != null) {
-        print(user.email);
         _user = _user.copyWith(email: user.email);
       }
     });

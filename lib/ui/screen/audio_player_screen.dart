@@ -153,83 +153,95 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
       drawer: AppDrawer(),
       appBar: CustomAppBar(title: _currentMusic.title),
       bottomNavigationBar: AppBottomNavigatioBar(),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(height: 32),
-            Image.asset(
-              _currentMusic.thumbnail,
-              fit: BoxFit.fitWidth,
-            ),
-            SizedBox(height: 32),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.shuffle),
-                  onPressed: () => _shuffle(),
-                ),
-                IconButton(
-                  icon: Icon(Icons.skip_previous),
-                  onPressed: () => _prev(),
-                ),
-                IconButton(
-                  icon: Icon(
-                    _audioPlayerState != AudioPlayerState.PLAYING ? Icons.play_arrow : Icons.pause,
-                  ),
-                  onPressed: () => _audioPlayerState != AudioPlayerState.PLAYING ? _play(_musics[_currentMusicIndex].url) : _pause(),
-                ),
-                IconButton(
-                  icon: Icon(Icons.stop),
-                  onPressed: () => _stop(),
-                ),
-                IconButton(
-                  icon: Icon(Icons.skip_next),
-                  onPressed: () => _next(),
-                ),
-                IconButton(
-                  icon: Icon(
-                    Icons.loop,
-                    color: _repeat ? Colors.black : Colors.grey.shade500,
-                  ),
-                  onPressed: () => _toggleRepeat(),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Row(
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
+                  SizedBox(height: 32),
+                  Image.asset(
+                    _currentMusic.thumbnail,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                  SizedBox(height: 32),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text('${(_position.inMinutes % 60).toString().padLeft(2, "0")}:${(_position.inSeconds % 60).toString().padLeft(2, "0")}'),
-                      SizedBox(width: 4),
-                      Text('/'),
-                      SizedBox(width: 4),
-                      Text('${(_duration.inMinutes % 60).toString().padLeft(2, "0")}:${(_duration.inSeconds % 60).toString().padLeft(2, "0")}'),
+                      IconButton(
+                        icon: Icon(Icons.shuffle),
+                        onPressed: () => _shuffle(),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.skip_previous),
+                        onPressed: () => _prev(),
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          _audioPlayerState != AudioPlayerState.PLAYING ? Icons.play_arrow : Icons.pause,
+                        ),
+                        onPressed: () => _audioPlayerState != AudioPlayerState.PLAYING ? _play(_musics[_currentMusicIndex].url) : _pause(),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.stop),
+                        onPressed: () => _stop(),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.skip_next),
+                        onPressed: () => _next(),
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.loop,
+                          color: _repeat ? Colors.black : Colors.grey.shade500,
+                        ),
+                        onPressed: () => _toggleRepeat(),
+                      ),
                     ],
                   ),
-                  Expanded(
-                    child: Slider(
-                      value: _position.inMilliseconds.toDouble(),
-                      max: _duration.inMilliseconds.toDouble() + 5000,
-                      onChanged: (value) {
-                        _advancedPlayer.seek(Duration(milliseconds: value.toInt()));
-                      },
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Row(
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Text('${(_position.inMinutes % 60).toString().padLeft(2, "0")}:${(_position.inSeconds % 60).toString().padLeft(2, "0")}'),
+                            SizedBox(width: 4),
+                            Text('/'),
+                            SizedBox(width: 4),
+                            Text('${(_duration.inMinutes % 60).toString().padLeft(2, "0")}:${(_duration.inSeconds % 60).toString().padLeft(2, "0")}'),
+                          ],
+                        ),
+                        Expanded(
+                          child: Slider(
+                            value: _position.inMilliseconds.toDouble(),
+                            max: _duration.inMilliseconds.toDouble() + 5000,
+                            onChanged: (value) {
+                              _advancedPlayer.seek(Duration(milliseconds: value.toInt()));
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
             ),
-            Row(
+          ),
+          SizedBox(height: 16),
+          Container(
+            height: 120,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Image.asset('assets/images/mom/mom-009.png', width: 150),
-                Image.asset(_currentMusic.credit, width: 220),
+                Image.asset('assets/images/mom/mom-009.png', height: 150),
+                Expanded(child: Image.asset(_currentMusic.credit)),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
