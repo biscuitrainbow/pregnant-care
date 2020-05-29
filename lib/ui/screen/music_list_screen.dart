@@ -40,7 +40,7 @@ class _MusicListScreenState extends State<MusicListScreen> {
       credit: 'assets/musics/nipphan-credit.jpg',
     ),
     Music(
-      title: 'เพลงดั่งดอกไม้บ้าน',
+      title: 'เพลงดั่งดอกไม้บาน (ดนตรีบรรเลง)',
       url: 'musics/dung-dok-mai-barn.mp3',
       thumbnail: 'assets/musics/dung-dok-mai-barn.jpg',
       credit: 'assets/musics/dung-dok-mai-barn-credit.jpg',
