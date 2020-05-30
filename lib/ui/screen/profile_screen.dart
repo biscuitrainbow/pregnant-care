@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:pregnantcare/ui/common/bordered_container.dart';
 import 'package:pregnantcare/ui/common/button.dart';
 import 'package:pregnantcare/ui/common/custom_app_bar.dart';
+import 'package:pregnantcare/ui/common/toast_message.dart';
 import 'package:pregnantcare/ui/style/text_styles.dart';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:pregnantcare/ui/common/toast_message.dart';
 import 'package:pregnantcare/data/model/user.dart';
 
 class ProfileScreen extends StatefulWidget {

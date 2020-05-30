@@ -21,6 +21,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
           Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => HomeScreen()));
         }
       });
+      
 
     super.initState();
   }

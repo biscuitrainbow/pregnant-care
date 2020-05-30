@@ -40,12 +40,6 @@ class AppDrawer extends StatelessWidget {
               SizedBox(height: 24),
               ...WidgetStyles.buildHomeMenuButtons(context, true),
               SizedBox(height: 64),
-              Button(
-                label: 'ออกจากระบบ',
-                color: Colors.white,
-                textStyle: TextStyles.labelBrown.copyWith(color: Colors.black, fontSize: 12),
-                onPressed: _signOut,
-              ),
             ],
           ),
         ),

@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pregnantcare/ui/common/button.dart';
+import 'package:pregnantcare/ui/screen/poeple_screen.dart';
 import 'package:pregnantcare/ui/screen/pregnan_four_screen.dart';
 import 'package:pregnantcare/ui/screen/pregnant_one_screen.dart';
 import 'package:pregnantcare/ui/screen/pregnant_three_screen.dart';
 import 'package:pregnantcare/ui/screen/pregnant_two_screen.dart';
-import 'package:pregnantcare/ui/style/text_styles.dart';
 
 class WidgetStyles {
   static buildAppBar(BuildContext context, String title) {
@@ -44,6 +43,21 @@ class WidgetStyles {
       SizedBox(height: 16),
       GestureDetector(
         child: Image.asset('assets/images/buttons/btn-main-004.png', height: 48),
+        onTap: () => navigate(PregnantFourScreen(), context, false),
+      ),
+      SizedBox(height: 16),
+      GestureDetector(
+        child: Image.asset('assets/images/buttons/btn-main-005.png', height: 48),
+        onTap: () => navigate(PeopleScreen(), context, false),
+      ),
+      SizedBox(height: 16),
+      GestureDetector(
+        child: Image.asset('assets/images/buttons/btn-main-006.png', height: 48),
+        onTap: () => navigate(PregnantFourScreen(), context, false),
+      ),
+      SizedBox(height: 16),
+      GestureDetector(
+        child: Image.asset('assets/images/buttons/btn-main-007.png', height: 48),
         onTap: () => navigate(PregnantFourScreen(), context, false),
       ),
     ];
