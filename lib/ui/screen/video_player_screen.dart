@@ -97,14 +97,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
               ],
             ),
           ),
-          Expanded(
-            child: Row(
-              children: <Widget>[
-                Expanded(child: Image.asset('assets/images/mom/mom-009.png', height: 150)),
-                Expanded(child: Image.asset(widget.videos[_currentVideIndex].credit)),
-              ],
-            ),
-          ),
+          Image.asset(widget.videos[_currentVideIndex].credit),
         ],
       ),
     );

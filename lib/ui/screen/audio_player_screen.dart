@@ -230,17 +230,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
               ),
             ),
           ),
-          SizedBox(height: 16),
-          Container(
-            height: 120,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Image.asset('assets/images/mom/mom-009.png', height: 150),
-                Expanded(child: Image.asset(_currentMusic.credit)),
-              ],
-            ),
-          ),
+          Image.asset(_currentMusic.credit, height: 150),
         ],
       ),
     );

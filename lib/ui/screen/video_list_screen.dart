@@ -17,12 +17,12 @@ class _VideoListScreenState extends State<VideoListScreen> {
     Video(
       title: 'เพลงดั่งดอกไม้บาน',
       url: 'assets/videos/video-002.mp4',
-      credit: 'assets/videos/video-001-credit.jpg',
+      credit: 'assets/videos/video-001-credit.png',
     ),
     Video(
       title: 'เพลงแผ่เมตตา',
       url: 'assets/videos/video-001.mp4',
-      credit: 'assets/videos/video-002-credit.jpg',
+      credit: 'assets/videos/video-002-credit.png',
     )
   ];
 

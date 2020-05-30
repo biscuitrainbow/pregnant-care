@@ -19,31 +19,31 @@ class _MusicListScreenState extends State<MusicListScreen> {
       title: 'Sundial dream',
       url: 'musics/sundial-dreams.mp3',
       thumbnail: 'assets/musics/sundial-dreams.jpg',
-      credit: 'assets/musics/sundial-dreams-credit.jpg',
+      credit: 'assets/musics/sundial-dreams-credit.png',
     ),
     Music(
       title: 'Relaxation Piano Music 1',
       url: 'musics/relaxing-piano-1.mp3',
       thumbnail: 'assets/musics/relaxing-piano-1.jpg',
-      credit: 'assets/musics/relaxing-piano-1-credit.jpg',
+      credit: 'assets/musics/relaxing-piano-1-credit.png',
     ),
     Music(
       title: 'Relaxation Piano Music 2',
       url: 'musics/relaxing-piano-2.mp3',
       thumbnail: 'assets/musics/relaxing-piano-2.jpg',
-      credit: 'assets/musics/relaxing-piano-2-credit.jpg',
+      credit: 'assets/musics/relaxing-piano-2-credit.png',
     ),
     Music(
       title: 'เพลงนิพพาน',
       url: 'musics/nipphan.mp3',
       thumbnail: 'assets/musics/nipphan.jpg',
-      credit: 'assets/musics/nipphan-credit.jpg',
+      credit: 'assets/musics/nipphan-credit.png',
     ),
     Music(
       title: 'เพลงดั่งดอกไม้บาน (ดนตรีบรรเลง)',
       url: 'musics/dung-dok-mai-barn.mp3',
       thumbnail: 'assets/musics/dung-dok-mai-barn.jpg',
-      credit: 'assets/musics/dung-dok-mai-barn-credit.jpg',
+      credit: 'assets/musics/dung-dok-mai-barn-credit.png',
     ),
   ];
 
