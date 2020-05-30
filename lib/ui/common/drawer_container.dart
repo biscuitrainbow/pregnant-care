@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:pregnantcare/ui/style/widget_styles.dart';
+import 'package:pregnantcare/ui/style/text_styles.dart';
+import 'package:pregnantcare/ui/common/button.dart';
+import 'package:pregnantcare/ui/common/toast_message.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AppDrawer extends StatelessWidget {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,10 +40,21 @@ class AppDrawer extends StatelessWidget {
               SizedBox(height: 24),
               ...WidgetStyles.buildHomeMenuButtons(context, true),
               SizedBox(height: 64),
+              Button(
+                label: 'ออกจากระบบ',
+                color: Colors.white,
+                textStyle: TextStyles.labelBrown.copyWith(color: Colors.black, fontSize: 12),
+                onPressed: _signOut,
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  void _signOut() async {
+    await _auth.signOut();
+    ToastMessage.showMessage('ออกจากระบบแล้ว');
   }
 }

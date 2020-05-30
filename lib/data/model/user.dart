@@ -5,6 +5,12 @@ class User {
   final String pregnantAgeWeek;
   final String pregnantAgeDay;
 
+  static final String keyEmail = 'email';
+  static final String keyName = 'name';
+  static final String keyDateOfBirth = 'dateOfBirth';
+  static final String keyPregnantAgeWeek = 'pregnantAgeDay';
+  static final String keyPregnantAgeDay = 'pregnantAgeWeek';
+
   User({
     this.email,
     this.name,

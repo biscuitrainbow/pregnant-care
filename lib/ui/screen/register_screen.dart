@@ -5,6 +5,8 @@ import 'package:pregnantcare/ui/common/bordered_container.dart';
 import 'package:pregnantcare/ui/common/button.dart';
 import 'package:pregnantcare/ui/common/custom_app_bar.dart';
 import 'package:pregnantcare/ui/style/text_styles.dart';
+import 'package:pregnantcare/data/model/user.dart';
+import 'package:pregnantcare/ui/common/toast_message.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -12,11 +14,17 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  bool _loadingVisible = false;
+  final _formKey = GlobalKey<FormState>();
 
   TextEditingController _emailController;
   TextEditingController _passwordController;
   TextEditingController _confirmPasswordController;
+
+  FirebaseAuth _auth;
+  FirebaseDatabase _database;
+  DatabaseReference _userRef;
+
+  bool _loadingVisible;
 
   @override
   void initState() {
@@ -24,7 +32,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _confirmPasswordController = TextEditingController();
     _passwordController = TextEditingController();
 
+    _auth = FirebaseAuth.instance;
+
+    _database = FirebaseDatabase.instance;
+    _userRef = _database.reference().child('users');
+
+    _loadingVisible = false;
+
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _confirmPasswordController.dispose();
+    _passwordController.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -52,36 +76,51 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ],
                   )
                 else
-                  Column(
-                    children: [
-                      TextFormField(
-                        controller: _emailController,
-                        decoration: InputDecoration(hintText: 'อีเมลล์', hintStyle: TextStyles.inputHint),
-                        style: TextStyles.inputHint,
-                      ),
-                      SizedBox(height: 24),
-                      TextFormField(
-                        controller: _passwordController,
-                        decoration: InputDecoration(hintText: 'รหัสผ่าน', hintStyle: TextStyles.inputHint),
-                        style: TextStyles.inputHint,
-                        obscureText: true,
-                      ),
-                      SizedBox(height: 24),
-                      TextFormField(
-                        controller: _confirmPasswordController,
-                        decoration: InputDecoration(hintText: 'ยืนยันรหัสผ่าน', hintStyle: TextStyles.inputHint),
-                        style: TextStyles.inputHint,
-                        obscureText: true,
-                      ),
-                      SizedBox(height: 24),
-                      Button(
-                        label: 'ลงทะเบียน',
-                        color: Color.fromRGBO(153, 204, 204, 1),
-                        textStyle: TextStyles.labelWhite,
-                        onPressed: _register,
-                      ),
-                      SizedBox(height: 36),
-                    ],
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          controller: _emailController,
+                          decoration: InputDecoration(hintText: 'อีเมลล์', hintStyle: TextStyles.inputHint),
+                          style: TextStyles.inputHint,
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (value) {
+                            if (value.isEmpty) return "กรุณากรอกอีเมลล์";
+                          },
+                        ),
+                        SizedBox(height: 24),
+                        TextFormField(
+                          controller: _passwordController,
+                          decoration: InputDecoration(hintText: 'รหัสผ่าน', hintStyle: TextStyles.inputHint),
+                          style: TextStyles.inputHint,
+                          obscureText: true,
+                          validator: (value) {
+                            if (value.isEmpty) return "กรุณากรอกรหัสผ่าน";
+                          },
+                        ),
+                        SizedBox(height: 24),
+                        TextFormField(
+                          controller: _confirmPasswordController,
+                          decoration: InputDecoration(hintText: 'ยืนยันรหัสผ่าน', hintStyle: TextStyles.inputHint),
+                          style: TextStyles.inputHint,
+                          obscureText: true,
+                          validator: (value) {
+                            if (value.isEmpty) return "กรุณากรอกยืนยันรหัสผ่าน";
+
+                            if (value != _passwordController.text) return "กรุณากรอกรหัสผ่าน 2 ครั้งให้ตรงกัน";
+                          },
+                        ),
+                        SizedBox(height: 24),
+                        Button(
+                          label: 'ลงทะเบียน',
+                          color: Color.fromRGBO(153, 204, 204, 1),
+                          textStyle: TextStyles.labelWhite,
+                          onPressed: _register,
+                        ),
+                        SizedBox(height: 36),
+                      ],
+                    ),
                   ),
               ],
             ),
@@ -92,28 +131,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void _register() async {
-    _showLoading();
+    if (!_formKey.currentState.validate()) {
+      return;
+    }
 
     try {
+      _showLoading();
+
       final email = _emailController.text;
       final password = _passwordController.text;
 
-      final result = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
-      final uid = result.user.uid;
+      final createdUser = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
-      await FirebaseDatabase.instance.reference().child('users/$uid').set({
-        'name': '',
-        'email': email,
-        'age': '',
-        'pregnantAgeWeek': '',
-        'pregnantAgeDay': '',
+      await _userRef.child('${createdUser.user.uid}').set({
+        User.keyName: '',
+        User.keyEmail: createdUser.user.email,
+        User.keyDateOfBirth: '',
+        User.keyPregnantAgeDay: '',
+        User.keyPregnantAgeWeek: '',
       });
 
       _hideLoading();
 
+      ToastMessage.showMessage('ลงทะเบียนแล้ว');
       Navigator.of(context).pop();
     } catch (e) {
-      print(e);
+      ToastMessage.showMessage('ลงทะเบียนไม่สำเร็จ');
       _hideLoading();
     }
   }

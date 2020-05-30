@@ -1,12 +1,11 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pregnantcare/data/model/video.dart';
 import 'package:pregnantcare/ui/common/app_bottom_navigation_bar.dart';
 import 'package:pregnantcare/ui/common/custom_app_bar.dart';
 import 'package:pregnantcare/ui/common/drawer_container.dart';
-import 'package:pregnantcare/ui/style/widget_styles.dart';
 import 'package:video_player/video_player.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
   final List<Video> videos;
