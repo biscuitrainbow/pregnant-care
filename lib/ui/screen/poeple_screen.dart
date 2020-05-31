@@ -11,7 +11,7 @@ class _PeopleScreenState extends State<PeopleScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'คณะกรรมที่ปรึกษาและรายนามผู้ทรงคุณวุฒิ'),
+      appBar: CustomAppBar(title: 'คณะกรรมการที่ปรึกษาและรายนามผู้ทรงคุณวุฒิ'),
       backgroundColor: Color.fromRGBO(135, 202, 204, 1),
       body: Container(
         decoration: BoxDecoration(

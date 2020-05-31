@@ -160,13 +160,15 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  SizedBox(height: 32),
-                  Image.asset(
-                    _currentMusic.thumbnail,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
+                  SizedBox(height: 24),
+                  AspectRatio(
+                    aspectRatio: 16 / 8,
+                    child: Image.asset(
+                      _currentMusic.thumbnail,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                  SizedBox(height: 32),
+                  SizedBox(height: 8),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[

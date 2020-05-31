@@ -37,11 +37,6 @@ class AppDrawer extends StatelessWidget {
               ),
               SizedBox(height: 24),
               ...WidgetStyles.buildHomeMenuButtons(context, true),
-              SizedBox(height: 16),
-              GestureDetector(
-                child: Image.asset('assets/images/buttons/btn-main-007.png', height: 48),
-                onTap: _signOut,
-              ),
             ],
           ),
         ),

@@ -96,7 +96,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
               ],
             ),
           ),
-          Image.asset(widget.videos[_currentVideIndex].credit),
+          Expanded(child: Image.asset(widget.videos[_currentVideIndex].credit)),
         ],
       ),
     );

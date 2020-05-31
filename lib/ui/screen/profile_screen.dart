@@ -20,6 +20,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   TextEditingController _nameController;
   TextEditingController _dateOfBirthController;
+  TextEditingController _ageController;
   TextEditingController _pregnantAgeWeekController;
   TextEditingController _pregnantAgeDayController;
   TextEditingController _emailController;
@@ -36,6 +37,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _emailController = TextEditingController();
     _nameController = TextEditingController();
     _dateOfBirthController = TextEditingController();
+    _ageController = TextEditingController();
     _pregnantAgeWeekController = TextEditingController();
     _pregnantAgeDayController = TextEditingController();
 
@@ -108,6 +110,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         decoration: InputDecoration(hintText: 'วันเกิด', hintStyle: TextStyles.inputHint, labelText: 'วันเกิด', labelStyle: TextStyle(color: Colors.black)),
                         style: TextStyles.inputHint,
                       ),
+                      TextFormField(
+                        controller: _ageController,
+                        decoration: InputDecoration(hintText: 'อายุ', hintStyle: TextStyles.inputHint, labelText: 'อายุ', labelStyle: TextStyle(color: Colors.black)),
+                        style: TextStyles.inputHint,
+                        enabled: false,
+                      ),
                       SizedBox(height: 24),
                       Text('อายุครรภ์', style: Theme.of(context).textTheme.caption.copyWith(color: Colors.black)),
                       Row(
@@ -170,8 +178,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
       onChange: (date, index) {
         final dateFormat = DateFormat('dd MMM yyyy');
         final dateText = dateFormat.format(date);
+        final age = _dateStringToAge(dateText);
 
-        setState(() => _dateOfBirthController = TextEditingController(text: dateText));
+        setState(() {
+          _dateOfBirthController = TextEditingController(text: "$dateText");
+          _ageController = TextEditingController(text: "$age ปี");
+        });
       },
       pickerTheme: DateTimePickerTheme(
         confirm: Text('ยืนยัน'),
@@ -189,6 +201,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       setState(() {
         _emailController = TextEditingController(text: user[User.keyEmail]);
         _nameController = TextEditingController(text: user[User.keyName]);
+        _ageController = (user[User.keyDateOfBirth] as String).isNotEmpty ? TextEditingController(text: '${_dateStringToAge(user[User.keyDateOfBirth])} ปี') : TextEditingController();
         _dateOfBirthController = TextEditingController(text: user[User.keyDateOfBirth]);
         _pregnantAgeWeekController = TextEditingController(text: user[User.keyPregnantAgeWeek]);
         _pregnantAgeDayController = TextEditingController(text: user[User.keyPregnantAgeDay]);
@@ -217,6 +230,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
       _hideLoading();
     }
+  }
+
+  int _dateStringToAge(date) {
+    final dateFormat = DateFormat('dd MMM yyyy');
+    final dateOfBirth = dateFormat.parse(date);
+    final now = DateTime.now();
+    final age = (now.difference(dateOfBirth).inDays ~/ 365);
+
+    return age;
   }
 
   void _showLoading() {
