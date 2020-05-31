@@ -230,7 +230,7 @@ class _AudioPlayerScreenState extends State<AudioPlayerScreen> {
               ),
             ),
           ),
-          Image.asset(_currentMusic.credit, height: 150),
+          Image.asset(_currentMusic.credit),
         ],
       ),
     );

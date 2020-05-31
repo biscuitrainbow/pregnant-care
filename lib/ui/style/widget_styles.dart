@@ -56,11 +56,6 @@ class WidgetStyles {
         child: Image.asset('assets/images/buttons/btn-main-006.png', height: 48),
         onTap: () => navigate(ReferenceScreen(), context, false),
       ),
-      SizedBox(height: 16),
-      GestureDetector(
-        child: Image.asset('assets/images/buttons/btn-main-007.png', height: 48),
-        onTap: () => navigate(PregnantFourScreen(), context, false),
-      ),
     ];
   }
 
