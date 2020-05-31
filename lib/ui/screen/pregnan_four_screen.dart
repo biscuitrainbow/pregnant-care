@@ -38,7 +38,7 @@ class _PregnantFourScreenState extends State<PregnantFourScreen> {
                 Button(
                   label: 'คลิกที่นี่เพื่อติดต่อพยาบาล',
                   color: Color.fromRGBO(255, 217, 80, 1),
-                  textStyle: TextStyles.labelBrown,
+                  textStyle: TextStyles.labelBrown.copyWith(fontSize: 14),
                   onPressed: () => launch('https://line.me/R/ti/p/%40387gerkd'),
                 ),
                 SizedBox(height: 32),
