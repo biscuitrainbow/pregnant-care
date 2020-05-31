@@ -1,9 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:pregnantcare/ui/style/widget_styles.dart';
-import 'package:pregnantcare/ui/style/text_styles.dart';
-import 'package:pregnantcare/ui/common/button.dart';
-import 'package:pregnantcare/ui/common/toast_message.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:pregnantcare/ui/common/toast_message.dart';
+import 'package:pregnantcare/ui/style/widget_styles.dart';
 
 class AppDrawer extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;

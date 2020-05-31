@@ -14,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
 
   @override
   void initState() {
-    animationController = new AnimationController(duration: Duration(seconds: 3), vsync: this)
+    animationController = new AnimationController(duration: Duration(seconds: 5), vsync: this)
       ..forward()
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
@@ -43,17 +43,17 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
         ),
         child: BorderedContainer(
           children: [
-            Container(
-              constraints: BoxConstraints(maxHeight: 250),
-              child: Image.asset(
-                'assets/images/text-logo.png',
-              ),
-            ),
-            SizedBox(height: 16),
+            // Container(
+            //   constraints: BoxConstraints(maxHeight: 250),
+            //   child: Image.asset(
+            //     'assets/images/text-logo.png',
+            //   ),
+            // ),
+            // SizedBox(height: 16),
             Container(
               constraints: BoxConstraints(maxHeight: 450),
               child: Image.asset(
-                'assets/images/family.png',
+                'assets/images/landing.png',
               ),
             ),
             SizedBox(height: 32),

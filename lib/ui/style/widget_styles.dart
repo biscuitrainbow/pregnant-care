@@ -5,6 +5,7 @@ import 'package:pregnantcare/ui/screen/pregnan_four_screen.dart';
 import 'package:pregnantcare/ui/screen/pregnant_one_screen.dart';
 import 'package:pregnantcare/ui/screen/pregnant_three_screen.dart';
 import 'package:pregnantcare/ui/screen/pregnant_two_screen.dart';
+import 'package:pregnantcare/ui/screen/reference_screen.dart';
 
 class WidgetStyles {
   static buildAppBar(BuildContext context, String title) {
@@ -53,7 +54,7 @@ class WidgetStyles {
       SizedBox(height: 16),
       GestureDetector(
         child: Image.asset('assets/images/buttons/btn-main-006.png', height: 48),
-        onTap: () => navigate(PregnantFourScreen(), context, false),
+        onTap: () => navigate(ReferenceScreen(), context, false),
       ),
       SizedBox(height: 16),
       GestureDetector(
