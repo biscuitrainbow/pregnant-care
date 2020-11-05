@@ -10,6 +10,7 @@ class User {
   static final String keyDateOfBirth = 'dateOfBirth';
   static final String keyPregnantAgeWeek = 'pregnantAgeDay';
   static final String keyPregnantAgeDay = 'pregnantAgeWeek';
+  static final String keyRegisteredDateTime = 'registeredDateTime';
 
   User({
     this.email,

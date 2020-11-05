@@ -9,6 +9,7 @@ import 'package:pregnantcare/ui/style/text_styles.dart';
 import 'package:flutter_cupertino_date_picker/flutter_cupertino_date_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:pregnantcare/data/model/user.dart';
+import 'package:pregnantcare/util/date_time_util.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key key}) : super(key: key);
@@ -94,36 +95,55 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Image.asset('assets/images/mom/mom-009.png', width: 150),
+                          Image.asset('assets/images/mom/mom-009.png',
+                              width: 150),
                         ],
                       ),
                       SizedBox(height: 16),
                       TextFormField(
                         controller: _nameController,
-                        decoration: InputDecoration(hintText: 'ชื่อ - สกุล', hintStyle: TextStyles.inputHint, labelText: 'ชื่อ - สกุล', labelStyle: TextStyle(color: Colors.black)),
+                        decoration: InputDecoration(
+                            hintText: 'ชื่อ - สกุล',
+                            hintStyle: TextStyles.inputHint,
+                            labelText: 'ชื่อ - สกุล',
+                            labelStyle: TextStyle(color: Colors.black)),
                         style: TextStyles.inputHint,
                       ),
                       SizedBox(height: 24),
                       TextFormField(
                         onTap: _pickDateOfBirth,
                         controller: _dateOfBirthController,
-                        decoration: InputDecoration(hintText: 'วันเกิด', hintStyle: TextStyles.inputHint, labelText: 'วันเกิด', labelStyle: TextStyle(color: Colors.black)),
+                        decoration: InputDecoration(
+                            hintText: 'วันเกิด',
+                            hintStyle: TextStyles.inputHint,
+                            labelText: 'วันเกิด',
+                            labelStyle: TextStyle(color: Colors.black)),
                         style: TextStyles.inputHint,
                       ),
                       TextFormField(
                         controller: _ageController,
-                        decoration: InputDecoration(hintText: 'อายุ', hintStyle: TextStyles.inputHint, labelText: 'อายุ', labelStyle: TextStyle(color: Colors.black)),
+                        decoration: InputDecoration(
+                            hintText: 'อายุ',
+                            hintStyle: TextStyles.inputHint,
+                            labelText: 'อายุ',
+                            labelStyle: TextStyle(color: Colors.black)),
                         style: TextStyles.inputHint,
                         enabled: false,
                       ),
                       SizedBox(height: 24),
-                      Text('อายุครรภ์', style: Theme.of(context).textTheme.caption.copyWith(color: Colors.black)),
+                      Text('อายุครรภ์',
+                          style: Theme.of(context)
+                              .textTheme
+                              .caption
+                              .copyWith(color: Colors.black)),
                       Row(
                         children: <Widget>[
                           Expanded(
                             child: TextFormField(
                               controller: _pregnantAgeWeekController,
-                              decoration: InputDecoration(hintText: 'สัปดาห์', hintStyle: TextStyles.inputHint),
+                              decoration: InputDecoration(
+                                  hintText: 'สัปดาห์',
+                                  hintStyle: TextStyles.inputHint),
                               style: TextStyles.inputHint,
                               keyboardType: TextInputType.number,
                             ),
@@ -132,7 +152,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Expanded(
                             child: TextFormField(
                               controller: _pregnantAgeDayController,
-                              decoration: InputDecoration(hintText: 'วัน', hintStyle: TextStyles.inputHint),
+                              decoration: InputDecoration(
+                                  hintText: 'วัน',
+                                  hintStyle: TextStyles.inputHint),
                               style: TextStyles.inputHint,
                               keyboardType: TextInputType.number,
                             ),
@@ -143,7 +165,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       TextFormField(
                         enabled: false,
                         controller: _emailController,
-                        decoration: InputDecoration(hintText: 'อีเมล', hintStyle: TextStyles.inputHint),
+                        decoration: InputDecoration(
+                            hintText: 'อีเมล', hintStyle: TextStyles.inputHint),
                         style: TextStyles.inputHint,
                       ),
                       SizedBox(height: 24),
@@ -201,10 +224,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
       setState(() {
         _emailController = TextEditingController(text: user[User.keyEmail]);
         _nameController = TextEditingController(text: user[User.keyName]);
-        _ageController = (user[User.keyDateOfBirth] as String).isNotEmpty ? TextEditingController(text: '${_dateStringToAge(user[User.keyDateOfBirth])} ปี') : TextEditingController();
-        _dateOfBirthController = TextEditingController(text: user[User.keyDateOfBirth]);
-        _pregnantAgeWeekController = TextEditingController(text: user[User.keyPregnantAgeWeek]);
-        _pregnantAgeDayController = TextEditingController(text: user[User.keyPregnantAgeDay]);
+        _ageController = (user[User.keyDateOfBirth] as String).isNotEmpty
+            ? TextEditingController(
+                text: '${_dateStringToAge(user[User.keyDateOfBirth])} ปี')
+            : TextEditingController();
+        _dateOfBirthController =
+            TextEditingController(text: user[User.keyDateOfBirth]);
+        _pregnantAgeWeekController =
+            TextEditingController(text: user[User.keyPregnantAgeWeek]);
+        _pregnantAgeDayController =
+            TextEditingController(text: user[User.keyPregnantAgeDay]);
       });
     });
   }
@@ -220,6 +249,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         User.keyDateOfBirth: _dateOfBirthController.text,
         User.keyPregnantAgeWeek: _pregnantAgeWeekController.text,
         User.keyPregnantAgeDay: _pregnantAgeDayController.text,
+        User.keyRegisteredDateTime: toMysqlDateTime(DateTime.now()),
       });
 
       _hideLoading();
