@@ -8,8 +8,8 @@ class User {
   static final String keyEmail = 'email';
   static final String keyName = 'name';
   static final String keyDateOfBirth = 'dateOfBirth';
-  static final String keyPregnantAgeWeek = 'pregnantAgeDay';
-  static final String keyPregnantAgeDay = 'pregnantAgeWeek';
+  static final String keyPregnantAgeDay = 'pregnantAgeDay';
+  static final String keyPregnantAgeWeek = 'pregnantAgeWeek';
   static final String keyPregnantAgeUpdatedAt = 'pregnantAgeUpdatedAt';
 
   User({

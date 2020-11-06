@@ -282,6 +282,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         User.keyName: _nameController.text,
         User.keyDateOfBirth: _dateOfBirthController.text,
         User.keyPregnantAgeWeek: _pregnantAgeWeekController.text,
+        User.keyPregnantAgeDay: _pregnantAgeDayController.text,
         User.keyPregnantAgeUpdatedAt: toMysqlDateTime(DateTime.now()),
       });
 
