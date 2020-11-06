@@ -26,6 +26,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   TextEditingController _pregnantAgeDayController;
   TextEditingController _emailController;
 
+  int _currentPregnantAgeWeek = 0;
+  int _currentPregnantAgeDay = 0;
+  int _age = 0;
+
   FirebaseAuth _auth;
   FirebaseDatabase _database;
 
@@ -120,18 +124,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             labelStyle: TextStyle(color: Colors.black)),
                         style: TextStyles.inputHint,
                       ),
-                      TextFormField(
-                        controller: _ageController,
-                        decoration: InputDecoration(
-                            hintText: 'อายุ',
-                            hintStyle: TextStyles.inputHint,
-                            labelText: 'อายุ',
-                            labelStyle: TextStyle(color: Colors.black)),
-                        style: TextStyles.inputHint,
-                        enabled: false,
+                      SizedBox(height: 24),
+                      Text('อายุ',
+                          style: Theme.of(context)
+                              .textTheme
+                              .caption
+                              .copyWith(color: Colors.black)),
+                      SizedBox(height: 12),
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Text('${_ageController.text}',
+                                style: TextStyles.inputHint),
+                          ),
+                        ],
                       ),
                       SizedBox(height: 24),
-                      Text('อายุครรภ์',
+                      Text('อายุครรภ์ที่บันทึกครั้งแรก',
                           style: Theme.of(context)
                               .textTheme
                               .caption
@@ -159,6 +168,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               keyboardType: TextInputType.number,
                             ),
                           ),
+                        ],
+                      ),
+                      SizedBox(height: 24),
+                      Text('อายุครรภ์ปัจจุบัน',
+                          style: Theme.of(context)
+                              .textTheme
+                              .caption
+                              .copyWith(color: Colors.black)),
+                      SizedBox(height: 12),
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Text('$_currentPregnantAgeWeek สัปดาห์',
+                                style: TextStyles.inputHint),
+                          ),
+                          // SizedBox(width: 32),
+                          // Expanded(
+                          //   child: Text('23 วัน', style: TextStyles.inputHint),
+                          // ),
                         ],
                       ),
                       SizedBox(height: 24),
@@ -196,10 +224,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void _pickDateOfBirth() {
     DatePicker.showDatePicker(
       context,
-      initialDateTime: DateTime(1990, 1, 1),
-      dateFormat: 'dd MMM yyyy',
-      onChange: (date, index) {
-        final dateFormat = DateFormat('dd MMM yyyy');
+      initialDateTime: DateTime(1950, 1, 1),
+      dateFormat: 'yyyy-MM-dd',
+      onChange: (date, index) {},
+      onConfirm: (date, index) {
+        final dateFormat = DateFormat('yyyy-MM-dd');
         final dateText = dateFormat.format(date);
         final age = _dateStringToAge(dateText);
 
@@ -234,6 +263,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
             TextEditingController(text: user[User.keyPregnantAgeWeek]);
         _pregnantAgeDayController =
             TextEditingController(text: user[User.keyPregnantAgeDay]);
+
+        _currentPregnantAgeWeek = toPregnantAge(
+          user[User.keyPregnantAgeUpdatedAt],
+          num.parse(user[User.keyPregnantAgeWeek]),
+        );
       });
     });
   }
@@ -248,8 +282,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         User.keyName: _nameController.text,
         User.keyDateOfBirth: _dateOfBirthController.text,
         User.keyPregnantAgeWeek: _pregnantAgeWeekController.text,
-        User.keyPregnantAgeDay: _pregnantAgeDayController.text,
-        User.keyRegisteredDateTime: toMysqlDateTime(DateTime.now()),
+        User.keyPregnantAgeUpdatedAt: toMysqlDateTime(DateTime.now()),
       });
 
       _hideLoading();
@@ -263,7 +296,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   int _dateStringToAge(date) {
-    final dateFormat = DateFormat('dd MMM yyyy');
+    final dateFormat = DateFormat('yyyy-MM-dd');
     final dateOfBirth = dateFormat.parse(date);
     final now = DateTime.now();
     final age = (now.difference(dateOfBirth).inDays ~/ 365);

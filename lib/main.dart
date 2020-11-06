@@ -15,7 +15,7 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   FirebaseAuth _auth;
   FirebaseDatabase _database;
   DatabaseReference _usageRef;
@@ -23,6 +23,8 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
+
     _auth = FirebaseAuth.instance;
     _database = FirebaseDatabase.instance;
     _usageRef = _database.reference().child('usages');
@@ -32,55 +34,56 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print(state);
+
+    if (state == AppLifecycleState.resumed) {
+      createUsage();
+    }
+  }
+
   void createUsage() async {
     final firebaseUser = await _auth.currentUser();
 
-    _userRef.child('${firebaseUser.uid}').onValue.listen((event) {
-      final user = event.snapshot.value;
+    if (firebaseUser != null) {
+      _userRef.child('${firebaseUser.uid}').onValue.listen((event) {
+        final user = event.snapshot.value;
 
-      final regisertedDateTime =
-          fromMysqlDateTime(user[User.keyRegisteredDateTime]);
-      final now = DateTime.now();
+        final regisertedDateTime =
+            fromMysqlDateTime(user[User.keyPregnantAgeUpdatedAt]);
+        final now = DateTime.now();
 
-      final diffInWeeks =
-          (regisertedDateTime.difference(now).inDays / 7).abs().toInt();
+        final diffInWeeks =
+            (regisertedDateTime.difference(now).inDays / 7).abs().toInt();
 
-      final currentPregnantAgeWeek =
-          num.parse(user[User.keyPregnantAgeWeek]) + diffInWeeks;
+        final currentPregnantAgeWeek =
+            num.parse(user[User.keyPregnantAgeWeek]) + diffInWeeks;
 
-      _usageRef.push().set({
-        'uid': firebaseUser.uid,
-        'timestamp': DateTime.now().toIso8601String(),
-        'email': user[User.keyEmail],
-        'name': user[User.keyName],
-        'pregnantAgeWeek': user[User.keyPregnantAgeWeek],
-        'pregnantAgeDay': user[User.keyPregnantAgeDay],
-        'currentPregnantAgeWeek': currentPregnantAgeWeek,
+        _usageRef.push().set({
+          'uid': firebaseUser.uid,
+          'timestamp': DateTime.now().toIso8601String(),
+          'email': user[User.keyEmail],
+          'name': user[User.keyName],
+          'pregnantAgeWeek': user[User.keyPregnantAgeWeek],
+          'pregnantAgeDay': user[User.keyPregnantAgeDay],
+          'currentPregnantAgeWeek': currentPregnantAgeWeek,
+        });
       });
-    });
-
-    //  _auth.currentUser().then((firebaseUser) {
-    //   _userRef.child('${firebaseUser.uid}').onValue.listen((event) {
-    //     final userJson = event.snapshot.value;
-
-    //     print('userJson : ${userJson}');r
-
-    //     // _usageRef.set({
-    //     //   'uid': firebaseUser.uid,
-    //     //   'timestamp': DateTime.now().toIso8601String(),
-    //     //   'email': userJson[User.keyEmail],
-    //     //   'name': userJson[User.keyName],
-    //     //   'pregnantAgeWeek': userJson[User.keyPregnantAgeWeek],
-    //     //   'pregnantAgeDay': userJson[User.keyPregnantAgeDay],
-    //     // });
-    //   });
-    // });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'การคลอดบุตร ไม่น่ากลัว',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         textTheme: GoogleFonts.sarabunTextTheme(),
         primarySwatch: Colors.blue,
