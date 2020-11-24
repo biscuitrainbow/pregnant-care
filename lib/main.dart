@@ -22,11 +22,15 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   DatabaseReference _userRef;
 
   @override
-  void initState() {
+  void initState() async {
     WidgetsBinding.instance.addObserver(this);
 
     _auth = FirebaseAuth.instance;
     _database = FirebaseDatabase.instance;
+
+    _database.setPersistenceEnabled(true);
+    _database.setPersistenceCacheSizeBytes(10000);
+
     _usageRef = _database.reference().child('usages');
     _userRef = _database.reference().child('users');
 
@@ -42,12 +46,13 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    print(state);
 
     if (state == AppLifecycleState.resumed) {
       createUsage();
     }
   }
+
+  void initFirebaseDatabase() async {}
 
   void createUsage() async {
     final firebaseUser = await _auth.currentUser();
