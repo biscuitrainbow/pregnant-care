@@ -10,6 +10,8 @@ import 'package:pregnantcare/ui/common/custom_app_bar.dart';
 import 'package:pregnantcare/ui/screen/forget_password_screen.dart';
 import 'package:pregnantcare/ui/style/text_styles.dart';
 import 'package:pregnantcare/ui/screen/register_screen.dart';
+import 'package:pregnantcare/util/date_time_util.dart';
+import 'package:pregnantcare/data/model/user.dart';
 
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
@@ -21,15 +23,25 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   bool _loadingVisible = false;
 
+  FirebaseAuth _auth;
+  FirebaseDatabase _database;
+  DatabaseReference _usageRef;
+  DatabaseReference _userRef;
+
   @override
   void initState() {
+    _auth = FirebaseAuth.instance;
+    _database = FirebaseDatabase.instance;
+
+    _usageRef = _database.reference().child('usages');
+    _userRef = _database.reference().child('users');
+
+    createUsage();
     super.initState();
   }
 
@@ -62,13 +74,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       TextFormField(
                         controller: _emailController,
-                        decoration: InputDecoration(hintText: 'อีเมลล์', hintStyle: TextStyles.inputHint),
+                        decoration: InputDecoration(
+                            hintText: 'อีเมลล์',
+                            hintStyle: TextStyles.inputHint),
                         style: TextStyles.inputHint,
                       ),
                       SizedBox(height: 24),
                       TextFormField(
                         controller: _passwordController,
-                        decoration: InputDecoration(hintText: 'รหัสผ่าน', hintStyle: TextStyles.inputHint),
+                        decoration: InputDecoration(
+                            hintText: 'รหัสผ่าน',
+                            hintStyle: TextStyles.inputHint),
                         style: TextStyles.inputHint,
                         obscureText: true,
                       ),
@@ -98,21 +114,28 @@ class _LoginScreenState extends State<LoginScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           FlatButton(
-                            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => ForgetPasswordScreen())),
+                            onPressed: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (_) => ForgetPasswordScreen())),
                             child: Text(
                               'ลืมรหัสผ่าน',
-                              style: TextStyles.labelWhite.copyWith(color: Color.fromRGBO(171, 170, 170, 1)),
+                              style: TextStyles.labelWhite.copyWith(
+                                  color: Color.fromRGBO(171, 170, 170, 1)),
                             ),
                           ),
                           Text(
                             '/',
-                            style: TextStyles.labelWhite.copyWith(color: Color.fromRGBO(171, 170, 170, 1)),
+                            style: TextStyles.labelWhite.copyWith(
+                                color: Color.fromRGBO(171, 170, 170, 1)),
                           ),
                           FlatButton(
-                            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => RegisterScreen())),
+                            onPressed: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (_) => RegisterScreen())),
                             child: Text(
                               'สร้างบัญชี',
-                              style: TextStyles.labelWhite.copyWith(color: Colors.green),
+                              style: TextStyles.labelWhite
+                                  .copyWith(color: Colors.green),
                             ),
                           )
                         ],
@@ -146,14 +169,19 @@ class _LoginScreenState extends State<LoginScreen> {
 
     try {
       final result = await facebookLogin.logIn(['email', 'public_profile']);
-      final graphResponse = await http.get('https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${result.accessToken.token}');
+      final graphResponse = await http.get(
+          'https://graph.facebook.com/v2.12/me?fields=name,first_name,last_name,email&access_token=${result.accessToken.token}');
       final profile = jsonDecode(graphResponse.body);
 
-      final credential = FacebookAuthProvider.getCredential(accessToken: result.accessToken.token);
+      final credential = FacebookAuthProvider.getCredential(
+          accessToken: result.accessToken.token);
       final user = await _auth.signInWithCredential(credential);
 
       if (user.additionalUserInfo.isNewUser) {
-        FirebaseDatabase.instance.reference().child('users/${user.user.uid}').set({
+        FirebaseDatabase.instance
+            .reference()
+            .child('users/${user.user.uid}')
+            .set({
           'name': profile['name'],
           'email': profile['email'],
           'age': '',
@@ -161,6 +189,8 @@ class _LoginScreenState extends State<LoginScreen> {
           'pregnantAgeDay': '',
         });
       }
+
+      createUsage();
 
       _hideLoading();
     } catch (e) {
@@ -180,8 +210,10 @@ class _LoginScreenState extends State<LoginScreen> {
       ],
     );
     try {
-      final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
-      final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+      final GoogleSignInAccount googleSignInAccount =
+          await googleSignIn.signIn();
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount.authentication;
 
       final AuthCredential credential = GoogleAuthProvider.getCredential(
         accessToken: googleSignInAuthentication.accessToken,
@@ -192,16 +224,23 @@ class _LoginScreenState extends State<LoginScreen> {
       await user.user.updateEmail(googleSignIn.currentUser.email);
 
       if (user.additionalUserInfo.isNewUser) {
-        FirebaseDatabase.instance.reference().child('users/${user.user.uid}').set({
+        FirebaseDatabase.instance
+            .reference()
+            .child('users/${user.user.uid}')
+            .set({
           'name': user.user.displayName,
-          'email': googleSignInAccount.email,
+          'email': googleSignIn.currentUser.email,
           'age': '',
           'pregnantAgeWeek': '',
           'pregnantAgeDay': '',
         });
       }
+
+      createUsage();
+
       _hideLoading();
     } catch (e) {
+      print(e);
       _hideLoading();
     }
   }
@@ -216,11 +255,44 @@ class _LoginScreenState extends State<LoginScreen> {
       );
       _hideLoading();
 
+      createUsage();
       // Navigator.of(context).pop();
     } catch (e) {
       _hideLoading();
 
       print(e);
+    }
+  }
+
+  void createUsage() async {
+    final firebaseUser = await _auth.currentUser();
+
+    if (firebaseUser != null) {
+      _userRef.child('${firebaseUser.uid}').once().then((snapshot) {
+        final user = snapshot.value;
+
+        final regisertedDateTime =
+            fromMysqlDateTime(user[User.keyPregnantAgeUpdatedAt]);
+        final now = DateTime.now();
+
+        final diffInWeeks =
+            (regisertedDateTime.difference(now).inDays / 7).abs().toInt();
+
+        final currentPregnantAgeWeek =
+            num.parse(user[User.keyPregnantAgeWeek]) + diffInWeeks;
+
+        _usageRef.push().set({
+          'uid': firebaseUser.uid,
+          'timestamp': DateTime.now().toIso8601String(),
+          'email': user[User.keyEmail],
+          'name': user[User.keyName],
+          'pregnantAgeWeek': user[User.keyPregnantAgeWeek],
+          'pregnantAgeDay': user[User.keyPregnantAgeDay],
+          'currentPregnantAgeWeek': currentPregnantAgeWeek,
+        }).catchError((error) {
+          print(error);
+        });
+      });
     }
   }
 }

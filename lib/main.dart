@@ -22,19 +22,17 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   DatabaseReference _userRef;
 
   @override
-  void initState() async {
+  void initState() {
     WidgetsBinding.instance.addObserver(this);
 
     _auth = FirebaseAuth.instance;
     _database = FirebaseDatabase.instance;
 
-    _database.setPersistenceEnabled(true);
-    _database.setPersistenceCacheSizeBytes(10000);
-
     _usageRef = _database.reference().child('usages');
     _userRef = _database.reference().child('users');
 
-    createUsage();
+    _initFirebaseDatabase().then((_) => createUsage());
+
     super.initState();
   }
 
@@ -46,20 +44,24 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-
     if (state == AppLifecycleState.resumed) {
       createUsage();
     }
   }
 
-  void initFirebaseDatabase() async {}
+  Future _initFirebaseDatabase() {
+    return Future.wait([
+      _database.setPersistenceEnabled(true),
+      _database.setPersistenceCacheSizeBytes(10000)
+    ]);
+  }
 
   void createUsage() async {
     final firebaseUser = await _auth.currentUser();
 
     if (firebaseUser != null) {
-      _userRef.child('${firebaseUser.uid}').onValue.listen((event) {
-        final user = event.snapshot.value;
+      _userRef.child('${firebaseUser.uid}').once().then((snapshot) {
+        final user = snapshot.value;
 
         final regisertedDateTime =
             fromMysqlDateTime(user[User.keyPregnantAgeUpdatedAt]);
@@ -79,6 +81,8 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
           'pregnantAgeWeek': user[User.keyPregnantAgeWeek],
           'pregnantAgeDay': user[User.keyPregnantAgeDay],
           'currentPregnantAgeWeek': currentPregnantAgeWeek,
+        }).catchError((error) {
+          print(error);
         });
       });
     }

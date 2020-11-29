@@ -32,7 +32,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   FirebaseAuth _auth;
   FirebaseDatabase _database;
-
+  DatabaseReference _usageRef;
   DatabaseReference _userRef;
 
   bool _loadingVisible;
@@ -47,8 +47,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _pregnantAgeDayController = TextEditingController();
 
     _auth = FirebaseAuth.instance;
-
     _database = FirebaseDatabase.instance;
+
+    _usageRef = _database.reference().child('usages');
     _userRef = _database.reference().child('users');
 
     _loadingVisible = false;
@@ -288,6 +289,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
       _hideLoading();
 
+      createUsage();
+
       ToastMessage.showMessage('บันทึกแล้ว');
     } catch (e) {
       ToastMessage.showMessage('บันทึกไม่สำเร็จ');
@@ -320,5 +323,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void _signOut() async {
     await _auth.signOut();
     ToastMessage.showMessage('ออกจากระบบแล้ว');
+  }
+
+  void createUsage() async {
+    final firebaseUser = await _auth.currentUser();
+
+    if (firebaseUser != null) {
+      _userRef.child('${firebaseUser.uid}').once().then((snapshot) {
+        final user = snapshot.value;
+
+        final regisertedDateTime =
+            fromMysqlDateTime(user[User.keyPregnantAgeUpdatedAt]);
+        final now = DateTime.now();
+
+        final diffInWeeks =
+            (regisertedDateTime.difference(now).inDays / 7).abs().toInt();
+
+        final currentPregnantAgeWeek =
+            num.parse(user[User.keyPregnantAgeWeek]) + diffInWeeks;
+
+        _usageRef.push().set({
+          'uid': firebaseUser.uid,
+          'timestamp': DateTime.now().toIso8601String(),
+          'email': user[User.keyEmail],
+          'name': user[User.keyName],
+          'pregnantAgeWeek': user[User.keyPregnantAgeWeek],
+          'pregnantAgeDay': user[User.keyPregnantAgeDay],
+          'currentPregnantAgeWeek': currentPregnantAgeWeek,
+        }).catchError((error) {
+          print(error);
+        });
+      });
+    }
   }
 }
