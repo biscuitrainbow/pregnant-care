@@ -16,7 +16,7 @@ class AppDrawer extends StatelessWidget {
             gradient: LinearGradient(
               colors: [
                 Color.fromRGBO(255, 185, 208, 1),
-                Color.fromRGBO(182, 229, 230, 1),
+                Color.fromRGBO(197, 228, 229, 1),
               ],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -28,15 +28,22 @@ class AppDrawer extends StatelessWidget {
           ),
           padding: EdgeInsets.symmetric(horizontal: 12),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 32),
+              SizedBox(height: 16),
               IconButton(
                 icon: Icon(Icons.close),
                 onPressed: () => Navigator.of(context).pop(),
               ),
               SizedBox(height: 24),
               ...WidgetStyles.buildHomeMenuButtons(context, true),
+              Center(
+                child: Image.asset(
+                  'assets/images/baby-bottom.jpg',
+                  width: 90,
+                ),
+              )
             ],
           ),
         ),

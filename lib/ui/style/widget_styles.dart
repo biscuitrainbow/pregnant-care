@@ -18,42 +18,52 @@ class WidgetStyles {
         ),
       ),
       automaticallyImplyLeading: false,
-      leading: IconButton(icon: Icon(Icons.arrow_back), onPressed: () => Navigator.of(context).pop()),
+      leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop()),
       elevation: 0,
       backgroundColor: Color.fromRGBO(255, 255, 153, 1),
-      iconTheme: Theme.of(context).iconTheme.copyWith(color: Color.fromRGBO(102, 51, 0, 1)),
+      iconTheme: Theme.of(context)
+          .iconTheme
+          .copyWith(color: Color.fromRGBO(102, 51, 0, 1)),
     );
   }
 
   static buildHomeMenuButtons(BuildContext context, [bool drawerMode = false]) {
     return [
       GestureDetector(
-        child: Image.asset('assets/images/buttons/btn-main-001.png', height: 48),
+        child:
+            Image.asset('assets/images/buttons/btn-main-001.png', height: 48),
         onTap: () => navigate(PregnantOneScreen(), context, false),
       ),
-      SizedBox(height: 16),
+      SizedBox(height: 0),
       GestureDetector(
-        child: Image.asset('assets/images/buttons/btn-main-002.png', height: 48),
+        child:
+            Image.asset('assets/images/buttons/btn-main-002.png', height: 48),
         onTap: () => navigate(PregnantTwoScreen(), context, false),
       ),
-      SizedBox(height: 16),
+      SizedBox(height: 0),
       GestureDetector(
-        child: Image.asset('assets/images/buttons/btn-main-003.png', height: 48),
+        child:
+            Image.asset('assets/images/buttons/btn-main-003.png', height: 48),
         onTap: () => navigate(PregnantThreeScreen(), context, false),
       ),
-      SizedBox(height: 16),
+      SizedBox(height: 0),
       GestureDetector(
-        child: Image.asset('assets/images/buttons/btn-main-004.png', height: 48),
+        child:
+            Image.asset('assets/images/buttons/btn-main-004.png', height: 48),
         onTap: () => navigate(PregnantFourScreen(), context, false),
       ),
-      SizedBox(height: 16),
+      SizedBox(height: 0),
       GestureDetector(
-        child: Image.asset('assets/images/buttons/btn-main-005.png', height: 48),
+        child:
+            Image.asset('assets/images/buttons/btn-main-005.png', height: 48),
         onTap: () => navigate(PeopleScreen(), context, false),
       ),
-      SizedBox(height: 16),
+      SizedBox(height: 0),
       GestureDetector(
-        child: Image.asset('assets/images/buttons/btn-main-006.png', height: 48),
+        child:
+            Image.asset('assets/images/buttons/btn-main-006.png', height: 48),
         onTap: () => navigate(ReferenceScreen(), context, false),
       ),
     ];
